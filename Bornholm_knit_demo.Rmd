@@ -1,0 +1,207 @@
+---
+title: "Bornholm_Ornamentation - Example Analysis"
+author: "MDH"
+date: "September 15, 2016"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Example of Analysis in Rmarkdown + knitr in RStudio
+
+Below is the workflow for an analysis on the Bornholm grave ornament data or `r data(bornholm)` in the `archdata` package.  The source info for this data is at the bottom of the page.  THe scope of the analysis is conducting a Correspondence Analysis on the count of different 39 different types of grave ornaments across 7 time periods from 77 female Iron Age graves in Bornholm, Denmark.  This analysis, while I believe valid, it just an example to show a reproducible research workflow.  The context for use of this example include a resaerch documenting thier own analysis, sharing analysis with a co-worker or advisor, preparing for publication, or just exploring some data that you find interesting. 
+
+The end result is a HTML, PDF, and/or Word document that contains the entire throughput of your analysis, all the packages, anaytical steps, and results.  From this, anyone else can recreate your analysis for confirmation or extension.  Perhaps the best part is that the person repeating it is future you that recalls when you did that great CA analysis on the Bornholm data.  This process solves the problem of, "now where did I put those files...""
+
+```{r Libraries, results = 'hide', message = FALSE}
+library("archdata")
+library("dplyr")
+library("MASS")
+library("factoextra")
+library("FactoMineR")
+library("gplots")
+```
+
+Load data from archdata package and look at structure
+
+```{r Data}
+data(Bornholm)
+bh <- Bornholm
+str(bh)
+```
+
+## Background of current research
+Look at Carlson version of Baxter(1994) Correspondence Analysis
+```{r Baxter}
+Bornholm.ca <- corresp(bh[, 4:42], nf=2)
+```
+
+```{r baxter_plot}
+# Symetric Biplot of Ornamentation by Site labeled by Time period
+plot(Bornholm.ca$rscore, pch=substring(bh$Period, 1, 1), cex=.75)
+# Boxplot of 1st CA dimension raw score by Time period
+boxplot(Bornholm.ca$rscore[, 1]~bh$Period, main="First CA Axis by Period")
+```
+
+## Current Analysis
+Instead of looking at each site, this analysis is more interested in change over time agraggated over sites.  This is an attempt to remove the variance between sites and look for a larger pattern from which Baxter's (1994) analysis is drawn.
+
+The approach here is to aggregate the counts of each ornamentation style per time period and then redo the Correspondence Analysis on these date.  If the CA results are verifiable via a Chi Square ($\chi^2$) test and row/column contributions, then we may be able to speak to the larger pattern of ornamentation thoughout these periods.
+
+The first step is to use `dplyr` and `tibble` packages to aggregate and prepare Bornholm data
+```{r Data_munge}
+bh2 <- group_by(bh, Period) %>%
+  dplyr::select(-Number, -Site) %>%
+  summarise_each(funs(sum)) %>%
+  mutate(Period = as.character(Period)) %>%
+  tibble::column_to_rownames(., "Period") %>%
+  data.frame()
+```
+
+Take a look at a sample of the results, make sure it looks right
+```{r bh2_results, comment = ""}
+print(bh2[,1:15]) # example of first 10 columns
+```
+
+
+First take a look at the distribution of ornamentations over time. This realies on the `gplots` package `balloonplot()` function.
+```{r EDA_viz}
+# convert to matrix for balloonplot() function
+bh2_table <- as.table(as.matrix(bh2))
+# balloon plotto show frequency of styles per time period
+balloonplot(x = t(bh2_table), main = "Ornamentation by Style and Time Period", xlab ="", ylab="",
+            label = FALSE, show.margins = FALSE)
+# mosaic plot visualizes the freqncy as the length of the bar and deviation for the expected-by-random frequency as color (red for less than expected, blue for more than expected)
+mosaicplot(bh2_table, shade = TRUE, las=2, main = "Ornamentation by Style and Time Period")
+```
+
+Conduct the CA analysis using the same `FactoMineR::CA()` to conduct the same type of analysis, but use a package that gives more information back for further study.  These results will be plotted with the `factoextra` packages.  This package returns a friendly `ggplot2` object to extend. From there, the CA will be redone with the `FactoMineR` package to give us more options to review the findings
+```{r bh2_corresp}
+ca3 <- CA(bh2, ncp = 2, graph = FALSE) # ncp = 2 indicates 2 CA dimensions 
+summary(ca3, nb.dec = 2, ncp = 2) 
+# use factoextra::fviz_ca_biplot() to create the same style plot as the Symetric Biplot above
+fviz_ca_biplot(ca3) + # the basic plot from the fviz_ca_biplot() function
+  theme_minimal()     # add further ggplot2 calls
+```
+
+
+The results above show a pretty convincing pattern between the relationship of the time periods (blue) and Ornamentations (red).  Three relatively distinct clusters or ornamentations appear in each of the upper-left, upper-right quadrants, and lower half.  The central portions of these clusters coincide with the time periods of 1, 3, and 2 respectivley.  
+
+Looking at the model a bit more indepth:
+Calculate the correaltion coefficient between the rows and columns
+```{r Eigen_cor}
+eig <- get_eigenvalue(ca3)
+trace <- sum(eig$eigenvalue) 
+cor.coef <- sqrt(trace)
+cor.coef # > 0.2 = significant (general rule)
+```
+
+The coefficient of `r cor.coef` is considered an important correlation result (Bendixen 1995, 576; Healey 2013, 289-290).  The summary results of the `ca3` object above give the $\chi^2$ results of the table values.  The same value is calcualted independently below.
+```{r chi_sq}
+chi2 <- trace*sum(as.matrix(bh2))
+# Degree of freedom
+df <- (nrow(bh2) - 1) * (ncol(bh2) - 1)
+# P-value
+pval <- pchisq(chi2, df = df, lower.tail = FALSE)
+paste0("chisq = ", round(chi2,3), ", p-value = ", round(pval,3)) # same as summary(ca3)
+```
+The results are the same as the summary above.
+
+Next, is to take a look at the justification for number of dimensions being evaluated.  The point of this portion of the analysis to find a threshold to use for deciding on the number of dimensions.  The threshold used here is to chose only those dimensions that explain more variance in the data that should be explained by random chance alone.
+
+```{r CA_threshold}
+row_random <- (1/(nrow(bh2)-1))*100 # expected explained var by random for row
+col_random <- (1/(ncol(bh2)-1))*100 # expected explained var by random for col
+
+fviz_screeplot(ca3) +
+  geom_hline(yintercept = max(row_random, col_random), linetype=2, color="red") +
+  theme_bw()
+# dimension 1 and 2 are included because dim > 3 could be by radom
+# e.g. below max(row_random, col_random)
+```
+
+The threshold (red dotted line) is drawn as the maximum value of the varaince explained by random for either rows or columns. In this case the row value is `r row_random`%, the column value is `r col_random`%, and there for the max is `r max(row_random, col_random)`%.  As depicted in the graphic, a choice of evaluating the first two dimensions is justifed under these assumptions.
+
+To understand which of rows/columns and observations contribute to the overall significane of the results, the rows and columns coordinates are colored by thier contribution values
+
+```{r row_contrib}
+# contirbution of rows to global solution
+fviz_ca_row(ca3, col.row="contrib")+
+  scale_color_gradient2(low="white", mid="blue", 
+                        high="red", midpoint=10)+
+  theme_bw()
+```
+```{r col_contrib}
+# contirbution of columns to global solution
+fviz_ca_col(ca3, col.col="contrib")+
+  scale_color_gradient2(low="white", mid="blue", 
+                        high="red", midpoint=5)+
+  theme_bw()
+```
+
+It appears to be the observations at the negative poles of dimension 1 that are most contributing to the results; these include time periods 1 and 3.
+
+To compliment the symetic biplots above, an asymetric biplot is presented to understand the relationship if rows and columsn witin a common measurement space.  As such, the distance and location relative to the angle of the row coordinates (blue) can be intepreted directly as they are projected into the same measurment space.  
+```{r asymetirc_biplot}
+# asymetric biplot in the measuremnet space of rows
+fviz_ca_biplot(ca3, map ="rowprincipal", arrow = c(TRUE, FALSE)) +
+  theme_bw()
+```
+
+### Concluding observations
+Generally, a series of styles are well clustered to time period 1a, with a related set at 1b.  The periods of 2a, 2b, and 2c are distance from both 1 and 3 and contain a continuum of styles.  There are a few overlapping styles (Q3d, R3b) between periods 2 and 3.  Finally, in the later time periods, 3a does not appear to have any stylistic cluster, but 3b contians the most distinct and distant cluster of any time period
+
+The images that show this best are the basic symetric plot and the asymetirc plot in row measurement space.  The code below will take the basic plots above and dress them up a bit with calls to `ggplot2`. These can be used in presentation or publication
+
+```{r final_plots}
+# dressed up symetric biplot
+fviz_ca_biplot(ca3, arrow = c(TRUE, FALSE), label = "row", labelsize = 5,
+               jitter = list(what = "label", width = 0.1, height = 0.1)) +
+  theme_bw() +
+  labs(title="CA Analysis: Symetric Biplot for Ornament Style and Time Period ",
+       subtitle="39 ornamentations from 77 female graves at Iron age sites in Bornholm, Denmark",
+       caption="Data: Ørsnes, M. (1966)") +
+  theme(
+    panel.border = element_rect(colour = "gray90"),
+    axis.text.x = element_text(angle = 0, size = 10, family = "Trebuchet MS"),
+    axis.text.y = element_text(size = 9, family = "Trebuchet MS"),
+    axis.title.y = element_text(size = 11, family = "Trebuchet MS"),
+    axis.title.x = element_text(size = 11, family = "Trebuchet MS"),
+    plot.caption = element_text(size = 10, hjust = 0, margin=margin(t=10), 
+                                family = "Trebuchet MS"),
+    plot.title=element_text(family="TrebuchetMS-Bold"),
+    plot.subtitle=element_text(family="TrebuchetMS-Italic")
+  )
+
+#contribution biplot
+fviz_ca_biplot(ca3, map ="rowprincipal", arrow = c(TRUE, FALSE), repel = TRUE) +
+  theme_bw() +
+  labs(title="CA Analysis: Conribution Biplot for Ornament Style and Time Period ",
+       subtitle="39 ornamentations from 77 female graves at Iron age sites in Bornholm, Denmark",
+       caption="Data: Ørsnes, M. (1966)") +
+  theme(
+    panel.border = element_rect(colour = "gray90"),
+    axis.text.x = element_text(angle = 0, size = 10, family = "Trebuchet MS"),
+    axis.text.y = element_text(size = 9, family = "Trebuchet MS"),
+    axis.title.y = element_text(size = 11, family = "Trebuchet MS"),
+    axis.title.x = element_text(size = 11, family = "Trebuchet MS"),
+    plot.caption = element_text(size = 10, hjust = 0, margin=margin(t=10), 
+                                family = "Trebuchet MS"),
+    plot.title=element_text(family="TrebuchetMS-Bold"),
+    plot.subtitle=element_text(family="TrebuchetMS-Italic")
+  )
+```
+
+### RStudio Environment Information
+
+```{r sysinfo}
+sessionInfo()
+```
+
+
+
+
+
+
