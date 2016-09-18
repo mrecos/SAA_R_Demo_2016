@@ -194,7 +194,24 @@ fviz_ca_biplot(ca3, map ="rowprincipal", arrow = c(TRUE, FALSE), repel = TRUE) +
   )
 ```
 
-### RStudio Environment Information
+## Data Source
+These data are from the `archdata` package in R and can be retrieved by typing `r data(bornholm)` once the package is installed and loaded.  The information below is form the pacakage documentation at: https://cran.r-project.org/web/packages/archdata/archdata.pdf
+
+#### Details
+Nielsen used data on 39 different types of ornaments from Ørsnes (1966) to seriate a series of 77 Germanic Iron Age graves from Bornholm, Denmark (1988, Table 4 and Figure 7). Baxter re-analyzed the data to illustrate correspondence analysis (1994: 104-107, Table A6). These data were taken from Nielsen’s Table 4 showing her seriation. Baxter’s version is scrambled in order to evaluate different seriation methods and does not include the ornament types (illustrated in Nielson’s Figure 7). The data include Ørsnes’s period designation (1966).
+
+
+####Source
+Baxter, M. J. 1994. Exploratory Multivariate Analysis in Archaeology. Edinburgh University Press. Edinburgh.
+
+
+Nielsen, D. H. 1988. Correspondence analysis applied to hords and graves of the Germanic Iron Age. In Multivariate Archaeology: Numerical Approaches in Scandinavian Archaeology, edited by Torsten Madsen, pp 37-54. Jutland Archaeological Society Publications XXI. Arahus University Press.
+
+
+Ørsnes, M. 1966. Form og stil i Sydskandinaviens yngre germanske jernalder. Nationalmuseets skrifter. Arkæologisk-historisk række 11. Copenhagen.
+
+
+## RStudio Environment Information
 
 ```{r sysinfo}
 sessionInfo()
