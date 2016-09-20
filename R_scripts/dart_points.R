@@ -38,6 +38,8 @@ dp <- DartPoints
 ## to better understand what it includes and how it is structured
 # the str() function prints out the strcture of the object
 str(dp)
+# dplyr package has a similar function
+glimpse(dp)
 # summary() function gives a summary of the data that varies by data type
 summary(dp)
 # head() function prints out the 'head' or first few occurences/rows of the data
@@ -47,16 +49,31 @@ head(dp)
 head(dp, 10)
 # the tail() function works the same way, but for the end of the dataset
 tail(dp,10)
+# We can even take a look at the table in a more spreadsheet presentation
+# not recommended for larger data sets
+View(dp)
 
-
-
-
-
-
-
-
-plot(dp$east,dp$north)
+## visualizing the data helps too
+hist(dp$Length)
+# hist() has additional arguments that control the bin count
+hist(dp$Length, breaks = 30)
+# boxplots allow for the visualization of aggregated distributions
+boxplot(dp$Length)
+# boxplots can also be grouped to compare distributions
+boxplot(dp$Length ~ dp$Name)
+# or bivariate combinations of all numric variables
 pairs(dp[,c(7:13)])
+
+# vectors
+
+# subsets
+
+# dplyr 
+
+# functions
+
+
+
 
 dp1 <- dplyr::select(dp, Length, Width, Thickness, B.Width, J.Width, Length, Weight)
 summary(dp1)
