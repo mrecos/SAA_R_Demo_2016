@@ -28,6 +28,7 @@ In ordet to learn about R, it is helpful to have R!  The basic installation of R
 
 # Learning resources
 The internet is full of resources (videos, blogs, tutorials, books) for learning R.  Many of these resources are worthwhile, some are exeptional, and some are a waste of time.  Sorting through them is beyond the scope of this course, but a few links below will help zero in an some of the best generalized resources:
+- Where to [find help][DC_help] with R
 - [Google Intro to R videos]
 - [R Studio On-line Learning]
 - Grolemund and Wickham's [R For Data Science][r4ds]
@@ -40,7 +41,7 @@ The internet is full of resources (videos, blogs, tutorials, books) for learning
 
 Resoures specific to R in archaeology are not numerous, but there are a growing number of really great resources:
 - Nakoinz and Knitter's new book [Modelling Human Behaviour in Landscapes][mhbil] and its [assocaited GitHub site][mhbil_gh] with chapter by chapter R code!
-- Ben Marwick's [Archaeological Science Github page][MarwickGH] - A very extensve list of tools and resources
+- Ben Marwick's [Archaeological Science Github page][MarwickGH] - A very extensve list of tools and resources.  A really great resource!
 - Stefano Costa's [Rchaeology Tutorials/wiki][stekoRchaeology] and [Github page][stekoRchaeologyGH] - Not updated for a number of years, but great information. 
 - Mike Baxter's manuscript [Notes on Quantitative Archaeology and R][BaxterQuantArch] - Fantastic primer on stats for archaeology using R.
 - [Quantitative Archaeology][my blog] - My blog
@@ -63,9 +64,6 @@ As we will cover in the seminar, installing a package in R is as simple as typin
 
 Additional data will be in the form of CSV files and GIS Shapefiles for examples of how to import these common data types.  These files are in the `data` folder in this GitHub repo.
 
-* [Archdata] - HTML enhanced for web apps!
-* [Ace Editor] - awesome web-based text editor
-
 # Seminar Schedule
 1) Introduction
     * About me
@@ -73,6 +71,7 @@ Additional data will be in the form of CSV files and GIS Shapefiles for examples
     * Learning Resources
 2) Introduction to R
     * Brief Demo
+    * Some truths about working in R
     * Uses across science and technology
 3) R in Archaeology
     * Explore existing applications of R in our field
@@ -154,6 +153,7 @@ Additional data will be in the form of CSV files and GIS Shapefiles for examples
    [r4ds]: <http://r4ds.had.co.nz/introduction.html>
    [mhbil_gh]: <https://github.com/dakni/mhbil>
    [mhbil]: <http://www.springer.com/us/book/9783319295367>
+   [DC_help]: <http://www.datacarpentry.org/R-genomics/00-before-we-start.html>
    
    
    
