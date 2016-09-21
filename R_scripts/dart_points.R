@@ -64,16 +64,6 @@ boxplot(dp$Length ~ dp$Name)
 # or bivariate combinations of all numric variables
 pairs(dp[,c(7:13)])
 
-# vectors
-
-# subsets
-
-# dplyr 
-
-# functions
-
-
-
 
 dp1 <- dplyr::select(dp, Length, Width, Thickness, B.Width, J.Width, Length, Weight)
 summary(dp1)
