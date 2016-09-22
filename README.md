@@ -70,11 +70,11 @@ Additional data will be in the form of CSV files and GIS Shapefiles for examples
     1. About me
     2. Seminar Goals
     3. Learning Resources
-2) Introduction to R
+2. Introduction to R
     * Brief Demo
     * Some truths about working in R
     * Uses across science and technology
-3) R in Archaeology
+3. R in Archaeology
     * Explore existing applications of R in our field
     * Motivating examples
     * Questions...
