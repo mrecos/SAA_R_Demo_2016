@@ -44,6 +44,7 @@ Resoures specific to R in archaeology are not numerous, but there are a growing 
 - Ben Marwick's [Archaeological Science Github page][MarwickGH] - A very extensve list of tools and resources.  A really great resource!
 - Stefano Costa's [Rchaeology Tutorials/wiki][stekoRchaeology] and [Github page][stekoRchaeologyGH] - Not updated for a number of years, but great information. 
 - Mike Baxter's manuscript [Notes on Quantitative Archaeology and R][BaxterQuantArch] - Fantastic primer on stats for archaeology using R.
+- [zooaRch: An R Package for Zooarchaeological Analyses][zooarch] -  really great R packaged by Erik Otárola-Castillo, Jess Wolfhagen, and Max Price
 - [Quantitative Archaeology][my blog] - My blog
 - [AAPA R Workshop] - Description and links from AAPA 2016 R workshop
 - David Carlson's [An R Companion to Statistics for Archaeologists by Robert Drennan][CarlsonStats] - a dense, but complete read when accompanying Drennan's book.
@@ -154,7 +155,8 @@ Additional data will be in the form of CSV files and GIS Shapefiles for examples
    [mhbil_gh]: <https://github.com/dakni/mhbil>
    [mhbil]: <http://www.springer.com/us/book/9783319295367>
    [DC_help]: <http://www.datacarpentry.org/R-genomics/00-before-we-start.html>
-   
+   [zooarch]: <https://cran.r-project.org/web/packages/zooaRch/vignettes/zooaRch-vignette.html>
+
    
    
    
