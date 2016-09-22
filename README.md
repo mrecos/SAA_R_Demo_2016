@@ -83,7 +83,7 @@ Additional data will be in the form of CSV files and GIS Shapefiles for examples
 4. Reproducible Research
     * What is it?
     * Why should I do it?
-    * How do I be reproducible?
+    * How do I practice reproducibility?
 5. Getting Started with R
     * Installing (will not be done live)
     * RStudio IDE
