@@ -66,10 +66,10 @@ As we will cover in the seminar, installing a package in R is as simple as typin
 Additional data will be in the form of CSV files and GIS Shapefiles for examples of how to import these common data types.  These files are in the `data` folder in this GitHub repo.
 
 # Seminar Schedule
-1) Introduction
-    * About me
-    * Seminar Goals
-    * Learning Resources
+1. Introduction
+    1. About me
+    2. Seminar Goals
+    3. Learning Resources
 2) Introduction to R
     * Brief Demo
     * Some truths about working in R
