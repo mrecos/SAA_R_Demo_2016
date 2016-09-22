@@ -78,33 +78,37 @@ Additional data will be in the form of CSV files and GIS Shapefiles for examples
     * Explore existing applications of R in our field
     * Motivating examples
     * Questions...
-4. Getting Started with R
+4. Reproducible Research
+    * What is it?
+    * Why should I do it?
+    * How do I be reproducible?
+5. Getting Started with R
     * Installing (will not be done live)
     * RStudio IDE
     * R package environment
-5. R Basics
+6. R Basics
     * Syntax
     * Data structures
     * Input/Output
     * Plotting (base R)
-6. Quick Break at half-time
-7. Introdcution to Examples
+7. Quick Break at half-time
+8. Introdcution to Examples
     * Motivation
     * Scope of examples
-8. Data Entry and Preperation
+9. Data Entry and Preperation
     * Data Input
     * Viewing Data
     * Data manipulation
     * Example - Field Data Processing
-9. Data Analysis
+10. Data Analysis
     * Exploratory Data Analysis (EDA)
     * Modeling
     * Example - GEOARCH DATA? somethign from archdata probably better
-10. Data Visualization
+11. Data Visualization
     * planning data visualiztions
     * Plotting in ggplot2
     * Example - Pueblo Migration
-11. Reporting and Reproducibility
+12. Reporting and Reproducibility
     * Documentation with knitr
     * Example - Bornholm grave ornamentation CA
 
