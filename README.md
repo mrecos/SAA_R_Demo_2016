@@ -103,7 +103,7 @@ Additional data will be in the form of CSV files and GIS Shapefiles for examples
 10. Data Analysis
     * Exploratory Data Analysis (EDA)
     * Modeling
-    * Example - GEOARCH DATA? somethign from archdata probably better
+    * Example - TBD
 11. Data Visualization
     * planning data visualiztions
     * Plotting in ggplot2
