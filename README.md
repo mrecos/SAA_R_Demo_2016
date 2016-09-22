@@ -32,6 +32,7 @@ The internet is full of resources (videos, blogs, tutorials, books) for learning
 - [Google Intro to R videos]
 - [R Studio On-line Learning]
 - Grolemund and Wickham's [R For Data Science][r4ds]
+- Welcome to the [Tidyverse]
 - [Data Camp]
 - [R on Coursera]
 - [R on Code School]
@@ -160,6 +161,7 @@ Additional data will be in the form of CSV files and GIS Shapefiles for examples
    [mhbil]: <http://www.springer.com/us/book/9783319295367>
    [DC_help]: <http://www.datacarpentry.org/R-genomics/00-before-we-start.html>
    [zooarch]: <https://cran.r-project.org/web/packages/zooaRch/vignettes/zooaRch-vignette.html>
+   [Tidyverse]: <http://blog.revolutionanalytics.com/2016/09/tidyverse.html>
 
    
    
