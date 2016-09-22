@@ -39,6 +39,7 @@ The internet is full of resources (videos, blogs, tutorials, books) for learning
 - [R at Software Carpentry]
 - [R Tutorial from UCLA]
 - [ggplot2 Tutorial]
+- Tutorials on [spatial topics][neon] raster, vector, time series, etc...
 
 Resoures specific to R in archaeology are not numerous, but there are a growing number of really great resources:
 - Nakoinz and Knitter's new book [Modelling Human Behaviour in Landscapes][mhbil] and its [assocaited GitHub site][mhbil_gh] with chapter by chapter R code!
@@ -162,6 +163,7 @@ Additional data will be in the form of CSV files and GIS Shapefiles for examples
    [DC_help]: <http://www.datacarpentry.org/R-genomics/00-before-we-start.html>
    [zooarch]: <https://cran.r-project.org/web/packages/zooaRch/vignettes/zooaRch-vignette.html>
    [Tidyverse]: <http://blog.revolutionanalytics.com/2016/09/tidyverse.html>
+   [neon]: <http://neondataskills.org/tutorial-series/>
 
    
    
