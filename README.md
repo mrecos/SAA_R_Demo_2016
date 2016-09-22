@@ -67,9 +67,9 @@ Additional data will be in the form of CSV files and GIS Shapefiles for examples
 
 # Seminar Schedule
 1. Introduction
-    1. About me
-    2. Seminar Goals
-    3. Learning Resources
+    * About me
+    * Seminar Goals
+    * Learning Resources
 2. Introduction to R
     * Brief Demo
     * Some truths about working in R
@@ -78,33 +78,33 @@ Additional data will be in the form of CSV files and GIS Shapefiles for examples
     * Explore existing applications of R in our field
     * Motivating examples
     * Questions...
-4) Getting Started with R
+4. Getting Started with R
     * Installing (will not be done live)
     * RStudio IDE
     * R package environment
-5) R Basics
+5. R Basics
     * Syntax
     * Data structures
     * Input/Output
     * Plotting (base R)
-6) Quick Break at half-time
-7) Introdcution to Examples
+6. Quick Break at half-time
+7. Introdcution to Examples
     * Motivation
     * Scope of examples
-8) Data Entry and Preperation
+8. Data Entry and Preperation
     * Data Input
     * Viewing Data
     * Data manipulation
     * Example - Field Data Processing
-9) Data Analysis
+9. Data Analysis
     * Exploratory Data Analysis (EDA)
     * Modeling
     * Example - GEOARCH DATA? somethign from archdata probably better
-10) Data Visualization
+10. Data Visualization
     * planning data visualiztions
     * Plotting in ggplot2
     * Example - Pueblo Migration
-11) Reporting and Reproducibility
+11. Reporting and Reproducibility
     * Documentation with knitr
     * Example - Bornholm grave ornamentation CA
 
