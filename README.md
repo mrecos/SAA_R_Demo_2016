@@ -98,9 +98,9 @@ Additional data will be in the form of CSV files and GIS Shapefiles for examples
     * Installing (will not be done live)
     * RStudio IDE - Demo
     * R package environment
-6. R Basics
-    * Syntax
-    * Data structures
+6. R Basics 
+    * Syntax - [Link to markdown][r_basic_concepts]
+    * Data structures  - [Link to markdown][r_working_with_data]
     * Input/Output
     * Plotting (base R)
 7. Quick Break at half-time
