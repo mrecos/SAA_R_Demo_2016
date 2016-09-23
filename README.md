@@ -1,3 +1,8 @@
+### Documentation for:
+# SAA On-line Seminar Series - *Using R Statistical Computing Language for Archaeological*
+### - Hosted by the Society for American Archaeology
+
+
 # Introduction
 This is a Github repository to hold information relative to the 2-hour seminar entitled: "Using R Statistical Computing Language for Archaeological".  This introductory seminar is being hosted by the [Society for American Archaeology][SAA] on September 27th at 2 to 4pm (EDT).  SAA members can sign up through [SAA Seminars] page.  Beacuse this is a professional development seminar that is eligible for Continuing Education Credits from the [Register for Profesional Archaeologists][RPA] it is a fee-based seminar.  The materials presented in this repo are intended to help participants of this seminar gain familiarity with R and data analaysis, but are free to be used by anyone else to learn a bit about R and its use in archaeology.  While the slides from the seminar and audio/video are property of the SAA and not available here, I think there should be lots of material here to help anyone get started.
 
