@@ -1,0 +1,306 @@
+---
+title: "r_working_with_data"
+author: "MDH"
+date: "September 22, 2016"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Basics of working with data
+# Operators, Loops, and Functions
+R excels at letting users interactively work with data in a fluid manner.  This is achieved through an interactive (line by line) interpreter, data structures, and expressive syntax.  Using the basics of of data types, vectors, an subsetting, we can use the functions and methods presented here to mold data into the form needed for further analysis and modeling.  This is by no means an exhaustive or even representative overview of data processing functions/methods, but it will offer some of the fundamental aspects.
+
+This overview is focused on functions in the base installation of R.  Another overview will briefly introduce data processing with in the ['Tidyverse'](https://blog.rstudio.org/2016/09/15/tidyverse-1-0-0/); a set of packages and functions designed explicitly for  processing, tidying, and visualizing data in R.
+
+Introduced here are:
+
+* Operators
+* Control structures
+* Basic function
+* Constructing User Defined Functions
+* Apply functions
+
+## Operators
+R contains a series of mathematical, logical, relational, and other operators that are the foundation of working with data.  An [operator](https://www.tutorialspoint.com/r/r_operators.htm) is a typically single or double character function that serves to perform comparative or arithmetic operations on data object.  The most basic examples are `+` for additions, `>` or `<` greater than or less than to test relative magnitude, `==` for testing equivalency, and `<-` for assigning something to an object. Below are examples of a few of these.
+
+
+### Arithmetic operators
+R has all the functionality to work as a massively expanded calculator.  A wide list of Arithmetic operators can be used on numeric type objects.
+```{r basic_operators, comment=''}
+2 + 3 # addition
+3 - 5 # subtraction
+3 * 3 # multiplication
+3^2 # raise to power of
+34 %% 15 # modulo
+sqrt(532) # square root
+log(1003) # natural log
+exp(34) # exponentiate
+sum(1:10) # sum
+mean(1:10) # mean
+median(1:10) # median
+var(1:10) # variance
+```
+
+#### Arithmetic operators on vectors and data frames
+These functions are vectorized, meaning that they will automatically apply the function to each element of a vector. As such, they will return a vector of the same length
+```{r arithmetic_examples, comment=''}
+# build a data.frame to work on
+set.seed(717)
+df2 <- data.frame(col1 = rnorm(10,0,1),
+                  col2 = rnorm(10,4,0.5),
+                  col3 = sample(c(TRUE, FALSE),10,replace=TRUE),
+                  col4 = letters[1:10],
+                  stringsAsFactors = FALSE)
+print(df2)
+df2$col5 <- df2$col1 + df2$col2 # addition
+print(df2$col5)
+df2$col5 <- df2$col1 - df2$col2 # subtraction
+print(df2$col5)
+df2$col5 <- df2$col1 / df2$col2 # division
+print(df2$col5)
+df2$col5 <- df2$col1 * df2$col2 # multiplication
+print(df2$col5)
+df2$col5 <- df2$col1 %% 0.2 # modulo
+print(df2$col5)
+```
+
+### Relational and Logical operators
+Relational and Logical operators return a TRUE or FALSE if the expression evaluated to TRUE or FALSE.  These can be used to subset a vector or data.frame and may not return a logical vector of the same length as the input.
+```{r realtional_operators, comment=''}
+df2$col4 == "b" # equals (returns logical)
+df2[which(df2$col4 == "b"),] # using which() to return columns
+df2[which(df2$col1 < -0.5), "col1"] # less than
+df2[which(df2$col1 >= -0.5), "col1"] # greater than or equal to
+isTRUE(df2[1,"col3"]) # is a value TRUE
+df2$col3 != TRUE # does not equal (returnd logical T/F)
+df2$col4 %in% c("b","h","j") # within a set, returns logical
+df2[which(df2$col4 %in% c("b","h","j")), "col4"] # returning values using which
+df2[which(df2$col1 < -0.5 | df2$col1 > 0.5), "col1"] # element wise or
+df2[which(df2$col1 < -0.5 & df2$col3 == TRUE), ] # element wise and
+```
+
+
+## Control structures
+Control structures are a main tool in building a program.  While operators allow you to manipulate data one function at a time (or across a vector), [control structures](https://ramnathv.github.io/pycon2014-r/learn/controls.html) allow you to add a logical flow to the operations.  The basic structures demonstrated here common across most any computer language, although syntax will vary.  These structures can be nested to add increasing level of control (and complexity)  Grasping the utility of control structures is really important in making the conceptual leap from R as a high-powered calculator to R as an environment to building an analysis.  Once understood, even more powerful structures exist in R.
+
+### Format of basic control structures
+```{r, control_structures, eval = FALSE}
+# if statement
+if (condition) { 
+  # do something
+}
+# if else statment
+if (condition) {
+  # do somthing
+} else {
+  # or do something else
+}
+# for loop
+for (variable in vector) {
+  # do something for each variable
+}
+# while loop
+while (condition) {
+  # do something while condition is TRUE
+}
+# nested loops
+if (condition) {
+    for (variable in vector) {
+    # do something for each variable
+  }
+} else {
+    if (condition) { 
+    # do something
+    } else {
+    # do something else
+  }
+}
+```
+
+### Examples of control structures
+```{r control_examples, comment=''}
+# if statment
+some_data <- rnorm(10,0,1)
+if (mean(some_data) > 0) {
+  some_new_data <- mean(some_data)
+  print(mean(some_data))
+}
+# if else statment
+some_data <- rnorm(10,0,1)
+if (mean(some_data) > 0) {
+  some_new_data <- mean(some_data)
+  print(mean(some_data))
+} else {
+  some_new_data <- NULL
+  print("Mean of data is less than zero")
+}
+# for loop
+some_data <- rnorm(10,0,1)
+for (i in 1:length(some_data)) {
+  some_new_data <- some_data[i]^2
+  print(some_new_data)
+}
+# nested ifelse in for loop
+some_data <- rnorm(10,0,1)
+some_new_data <- NULL
+for (i in 1:length(some_data)) {
+  iter_data <- some_data[i]
+  if (iter_data > 0) {
+    some_new_data[i] <- iter_data^2
+    print("Data positive")
+  } else {
+    some_new_data[i] <- abs(iter_data)^2
+    print("Data < 0, applied asb()")
+  }
+}
+print(some_new_data)
+# while loop # be careful
+i <- 0
+while(i < 4){
+  new_value <- rbinom(1,1,0.5)
+  i <- i + new_value
+  print(paste0("Value of 'i' is: ", i))
+}
+```
+
+### Vectorized version of nested loop
+```{r vectorized_loop, comment=''}
+# vectorized version of above
+some_new_data2 <- ifelse(some_data > 0, some_data^2, abs(some_data)^2)
+print(some_new_data2)
+identical(some_new_data, some_new_data2)
+```
+
+
+## R functions to work with data
+Both operators and control structures open the door to [functional programming](http://adv-r.had.co.nz/Functional-programming.html), but there are thousands of pre-build [functions](http://adv-r.had.co.nz/Functions.html) available in R and the package ecosystem, and an infinite number of User Defined Functions that you can create for your own needs. The real work of "learning R" is really to learn what functions exist, how they work, how to write your own, and how do so with efficiently and defensively.  By creating functions, you unlock the power and potential of R.
+
+### Base functions for manipulating data
+It is well beyond the scope of this class to cover the thousands of base functions, but a very small sample is presented.  The live demo and example rmarkdown files will demonstrate many more.
+
+```{r base_functions, comment=''}
+df2$col5 <- df2$col1 - mean(df2$col1)
+print(df2$col5)
+df2$col5 <- scale(df2$col1, center = TRUE, scale = FALSE)
+print(df2$col5)
+df2$col5 <- sign(df2$col1)
+print(df2$col5)
+df2$col5 <- ifelse(sign(df2$col1) == 1, TRUE, FALSE)
+print(df2$col5)
+df_sample <- sample(df2$col1, 20, replace = TRUE)
+print(df_sample)
+sort(df_sample)
+rev(sort(df_sample))
+```
+
+
+### User Defined Function
+Often in R, there is not available function to do what you want to do.  This may be because you are creating a new statistical method, that your need is very specific, or that you are extending the limits of an existing function, for example. In this case, you may create you own function.  Creating a function is very easy in R.  The structure of a new function is:
+```{r function_structure, eval=FALSE}
+name_of_new_function <- function(arguments){
+  # do something here
+  return(results)
+}
+```
+
+Functions can have any name that follows convention, or no name at all (an anonymous function), can take any object type as input arguments, and can return any object type.  In the example below:
+
+* I assign the object called `my_function` 
+* the function that takes three arguments `x`, `y`, and `constant`
+* the `ifelse()` evaluates if each $x_i$ is greater than or equal to zero
+* if `TRUE`, $x_i$ is squared, if `FALSE` $x_i$ is divided by 2
+* then the object `new_value` is assigned the `mean` of `y`
+* multiplied by `x` (after being altered by the `ifelse()`)
+* and the constant argument is added
+* the values assigned to `new_value` is returned back to where the function was called.  In this case
+
+Note: if any of the arguments are not of the type `numeric`, this will result in an error.  A more defensive function would include a test of the arguments that returns a helpful error message if that are anything but `numeric`.  Further, this function will work with either `numeric` vectors or single `numeric` values. However, the assignment back to `df2$col5` will result in an error because the length of the returned value is not equal to the length of the column vector it is being assigned to.
+
+```{r my_function, comment=''}
+my_function <- function(x, y, constant){
+  x <- ifelse(x >= 0, x^2, x/2)
+  new_value <- mean(y) * x + constant
+  return(new_value)
+}
+
+df2$col5 <- my_function(x = df2$col1, y = df2$col2, constant = 0.5)
+print(df2$col5)
+```
+
+
+One important thing to learn about functions is whats referred to as [scoping](http://www.programiz.com/r-programming/environment-scope), or where R looks for the variables you are using inside your function. Over simplifying a bit, the function will look for information in the arguments passed to it and the variables assigned within it; as opposed to looking outside the function (out into your program).  That means if you define the object `myVar <- 5` outside of the function, but do not pass it into the function, the function will not know what you mean by `myVar`.  Bottom line, while learning, do not use global variables.  If you want to use an object in a function, create it there or pass it in as an argument. A quick example:
+
+```{r}
+# function environment - look internally for myVar
+inside_scoping <- function(x){
+  myVar <- 1 # myVar defined inside function
+  new_value <- x + myVar
+  return(new_value)
+}
+myVar <- 5 # myVar also defined outside function
+myValue1 <- inside_scoping(1)
+print(myValue1) # function uses internal myVar
+
+## or ##
+
+# script environment - look globally for myVar
+outside_scoping <- function(x){
+  # myVar no longer defined in function, but used in here
+  new_value <- x + myVar
+  return(new_value)
+}
+myVar <- 5 # myVar only defined outside (globally)
+myValue2 <- outside_scoping(1)
+print(myValue2) # function finds myVar in the global environment and uses it
+```
+
+
+## `apply` functions
+Putting the ideas of control structures, vectorizing, and functions together, we end up with the family of [apply functions in R](https://www.datacamp.com/community/tutorials/r-tutorial-apply-family#gs.r6jOdjQ).  To paraphrase a common sentiment in R users, "If your first thought is 'how can I loop this', your second thought should be 'how can I vecotrize this instead'".  This sentiment is born from the fact that loops (for, each, if, etc...) can be slow and cumbersome compared to vectorized forms that take advantage of faster code and are more presentable (if you are comfortable reading them).  The `apply` functions are a first step at this more efficient version of R programming.  They take some getting used to, but can save you major headaches down the road.
+
+The `apply` functions perform more complex operations to slice and aggregate data in vectors, matrices, and lists than the basic functions used earlier, and do so in faster and in fewer lines of code than making loops to do the job.  Here are some examples (see then link in the previous paragraph for a more in-depth treatment):
+
+```{r apply_functions, comment=''}
+# make a sample data.frame
+df3 <- data.frame(col1 = rnorm(100,0,1),
+                  col2 = rnorm(100,4,0.5),
+                  col3 = rbinom(100,1,0.5))
+# apply() # returns vector by applying function over margins of a matrix
+column_means <- apply(df3,2,mean) # compute the mean of each column
+print(column_means)
+row_means <- apply(df3,1,mean) # compute the mean of each row
+head(row_means)
+sqrd_matrix <- apply(df3,1:2, function(x) x^2) # square each value in a matrix
+head(sqrd_matrix)
+# colMeans(), rowMeans(), colSums(), rowSums() stand in for the above
+```
+
+### The `by()` function performs operations by groups
+```{r by_functions, comment=''}
+# by # operations by a group
+group_col_means <- by(df3[,1:2], df3$col3, colMeans) # column means by group
+print(group_col_means)
+```
+
+### `lapply()` apply function to each element of a list; returns list
+```{r other_apply_functions, comment=''}
+l2 <- list(part1 = rnorm(5,0,1), part2 = rnorm(12,3,1))
+print(l2)
+list_means <- lapply(l2, mean)
+print(list_means)
+list_sums <- lapply(l2, sum)
+print(list_sums)
+# sapply - similar to lapply, but returns vector of matrix
+list_means2 <- sapply(l2, mean)
+print(list_means2)
+### Other apply methods should you need them
+```
+
+
+
+
+
+
