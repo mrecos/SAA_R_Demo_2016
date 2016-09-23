@@ -26,6 +26,13 @@ In ordet to learn about R, it is helpful to have R!  The basic installation of R
 2) Install [RStudio][R Studio Download]
 3) Wactch a brief [RStudio intro video][R Studio Intro video] and check out the learning resources below 
 
+# Course Material
+Accompanying the on-line 2hr seminar, below are links to R Markdown documents that we will cover as part of learning the basics of R.  These files are hosted in the `r_markdown_docs` folder of this repo.  The bascis covered in these documents is used to support the more in-depth project examples that we will go through live during the seminar.  However, these can be used and reviewed (along with the additional learning resources linked below) at any time to help you learn the basics of R.
+
+- [Introduction to basic R concepts][r_basic_concepts]
+- [Working with data][r_working_with_data]: Operators, Loops, and Functions
+- Tidy Data (forth coming...)
+
 # Learning resources
 The internet is full of resources (videos, blogs, tutorials, books) for learning R.  Many of these resources are worthwhile, some are exeptional, and some are a waste of time.  Sorting through them is beyond the scope of this course, but a few links below will help zero in an some of the best generalized resources:
 - Where to [find help][DC_help] with R
@@ -170,6 +177,8 @@ Additional data will be in the form of CSV files and GIS Shapefiles for examples
    [neon]: <http://neondataskills.org/tutorial-series/>
    [R Markdown]: <http://rmarkdown.rstudio.com/index.html>
    [ramnath]:<https://ramnathv.github.io/pycon2014-r/>
+   [r_basic_concepts]:<https://github.com/mrecos/SAA_R_Demo_2016/blob/master/r_markdown_docs/r_basic_concepts.html>
+   [r_working_with_data]:<https://github.com/mrecos/SAA_R_Demo_2016/blob/master/r_markdown_docs/r_working_with_data.html>
 
    
    
