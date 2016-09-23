@@ -59,6 +59,7 @@ Resources for getting started learning and practicing Reproducible Research:
 - Victoria Stodden's [Why scientists must share their research code][stodden]: widely circulated recent piece
 - Karl Broman's [Tools for Reproducible Research][kbroman]: a site for Karl's course on the topic, but has great links; dig into it.
 - John Hopkins University Coursera course of [Reproducible Research][JHU_repro]
+- RStudio guide to [R Markdown]
 
 # Data for Seminar
 The vast majority of the data used in the examples of the seminar are drawn from the [Archdata] package for R.  This is a fantastic package pulled together by David L. Carlson (Texas A & M) and Georg Roth.  This pacakge offers 24 different archaeological data sets along with meta-data including description, source, and references.  The data sets in this package have been used in various archaeological studies and the package author often includes R examples of these analyses.  
@@ -86,7 +87,7 @@ Additional data will be in the form of CSV files and GIS Shapefiles for examples
     * How do I practice reproducibility?
 5. Getting Started with R
     * Installing (will not be done live)
-    * RStudio IDE
+    * RStudio IDE - Demo
     * R package environment
 6. R Basics
     * Syntax
@@ -164,6 +165,7 @@ Additional data will be in the form of CSV files and GIS Shapefiles for examples
    [zooarch]: <https://cran.r-project.org/web/packages/zooaRch/vignettes/zooaRch-vignette.html>
    [Tidyverse]: <http://blog.revolutionanalytics.com/2016/09/tidyverse.html>
    [neon]: <http://neondataskills.org/tutorial-series/>
+   [R Markdown]: <http://rmarkdown.rstudio.com/index.html>
 
    
    
