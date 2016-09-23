@@ -34,6 +34,7 @@ The internet is full of resources (videos, blogs, tutorials, books) for learning
 - Grolemund and Wickham's [R For Data Science][r4ds]
 - [Ramnath Vaidyanathan's][ramnath] Introduction to R course
 - Welcome to the [Tidyverse]
+- [Tidy tools manifesto][tidy] by Hadley Wickham
 - [Data Camp]
 - [R on Coursera]
 - [R on Code School]
@@ -165,6 +166,7 @@ Additional data will be in the form of CSV files and GIS Shapefiles for examples
    [DC_help]: <http://www.datacarpentry.org/R-genomics/00-before-we-start.html>
    [zooarch]: <https://cran.r-project.org/web/packages/zooaRch/vignettes/zooaRch-vignette.html>
    [Tidyverse]: <http://blog.revolutionanalytics.com/2016/09/tidyverse.html>
+   [tidy]:<https://mran.microsoft.com/web/packages/tidyverse/vignettes/manifesto.html>
    [neon]: <http://neondataskills.org/tutorial-series/>
    [R Markdown]: <http://rmarkdown.rstudio.com/index.html>
    [ramnath]:<https://ramnathv.github.io/pycon2014-r/>
