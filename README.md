@@ -47,6 +47,7 @@ The internet is full of resources (videos, blogs, tutorials, books) for learning
 - [Ramnath Vaidyanathan's][ramnath] Introduction to R course
 - Welcome to the [Tidyverse]
 - [Tidy tools manifesto][tidy] by Hadley Wickham
+- [Wide vs. Long Data][wide_long_data]
 - [Data Camp]
 - [R on Coursera]
 - [R on Code School]
@@ -185,6 +186,7 @@ Additional data will be in the form of CSV files and GIS Shapefiles for examples
    [r_basic_concepts]:<http://rpubs.com/mharris/211896>
    [r_working_with_data]:<http://rpubs.com/mharris/r_working_with_data>
    [RPubs]: <https://rpubs.com/>
+   [wide_long_data]:<http://stanford.edu/~ejdemyr/r-tutorials/wide-and-long/>
 
    
    
