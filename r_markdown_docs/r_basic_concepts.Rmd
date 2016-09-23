@@ -1,5 +1,5 @@
 ---
-title: "Untitled"
+title: "SAA Seminar - R Basic Concept and Syntax"
 author: "MDH"
 date: "September 20, 2016"
 output: html_document
@@ -9,7 +9,8 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-# Intro
+## R - Basic Concepts and Syntax
+## Intro
 Basic data types and working with data structures
 R has three main data types: chracter, numeric, and logical
 These data types are used as single objects, or within data structures

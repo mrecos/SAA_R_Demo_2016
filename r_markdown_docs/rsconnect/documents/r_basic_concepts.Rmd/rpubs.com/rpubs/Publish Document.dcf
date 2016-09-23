@@ -1,0 +1,7 @@
+name: Publish Document
+account: rpubs
+server: rpubs.com
+appId: https://api.rpubs.com/api/v1/document/211896/d66637e7b1f94249aeee8a0dc36a3195
+bundleId: https://api.rpubs.com/api/v1/document/211896/d66637e7b1f94249aeee8a0dc36a3195
+url: http://rpubs.com/mharris/211896
+when: 1474651052.25683

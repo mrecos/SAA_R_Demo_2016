@@ -1,5 +1,5 @@
 ---
-title: "r_working_with_data"
+title: "SAA Seminar - R working with data"
 author: "MDH"
 date: "September 22, 2016"
 output: html_document
@@ -9,7 +9,7 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-# Basics of working with data
+# Basics of working with data in R:
 # Operators, Loops, and Functions
 R excels at letting users interactively work with data in a fluid manner.  This is achieved through an interactive (line by line) interpreter, data structures, and expressive syntax.  Using the basics of of data types, vectors, an subsetting, we can use the functions and methods presented here to mold data into the form needed for further analysis and modeling.  This is by no means an exhaustive or even representative overview of data processing functions/methods, but it will offer some of the fundamental aspects.
 
