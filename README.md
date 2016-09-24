@@ -110,9 +110,6 @@ Additional data will be in the form of CSV files and GIS shapefiles for examples
     * What is R?
     * Approaches to working with data
     * Tidyverse - a more intuitive approach
-
- - Quick Break at half-time
- 
 5. Example - Data Analysis and Modeling
     * Exploratory Data Analysis (EDA)
     * Statistical Modeling
@@ -124,9 +121,6 @@ Additional data will be in the form of CSV files and GIS shapefiles for examples
 7. Example - Reporting and Reproducibility
     * Documentation with knitr
     * Example - Bornholm grave ornamentation CA
-
- - Closing Thoughts and Questions.
-
 
 
 
