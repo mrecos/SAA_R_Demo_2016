@@ -122,10 +122,7 @@ Additional data will be in the form of CSV files and GIS shapefiles for examples
     * Documentation with knitr
     * Example - Bornholm grave ornamentation CA
 
-
-
 [//]: # (These are reference links used in the body of this note and get stripped out when the markdown processor does its job. There is no need to format nicely because it shouldn't be seen. Thanks SO - http://stackoverflow.com/questions/4823468/store-comments-in-markdown-syntax)
-
 
    [R Studio]: <https://www.rstudio.com/>
    [R Studio Download]: <https://www.rstudio.com/products/rstudio/download3/>
