@@ -1,0 +1,7 @@
+name: Publish Document
+account: rpubs
+server: rpubs.com
+appId: https://api.rpubs.com/api/v1/document/212016/b1cd9fc215194b12ad2721ab3f35dbb9
+bundleId: https://api.rpubs.com/api/v1/document/212016/b1cd9fc215194b12ad2721ab3f35dbb9
+url: http://rpubs.com/mharris/212016/edit
+when: 1474684899.75109

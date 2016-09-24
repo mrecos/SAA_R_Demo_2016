@@ -1,0 +1,149 @@
+---
+title: "Basic data Import"
+author: "MDH"
+date: "September 23, 2016"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# R - Basics of Importing Data
+
+R is a super powerful environment for data manipulation and modeling, but getting *your* data into R is the key to learning how to use it.  Simply, data can be entered manually in R manually, or brought in as a file,  via internet protocol (http most commonly), or from a database (PostgreSQL, SQL, etc...).  Database import/export will not be covered here. Exporting data from R follows a similar trajectory with the addition of exporting as markdown or other forms of reproducible documents.  It is important to say that data input and output is a very important part of the reproducibility regime. Code without data is sometimes as bad as no code at all.  Making sure that the data is available and easily digestible is critical in maintaining reproducibility. This markdown will demonstrate some of the common ways to get data into and out of R. For a very in depth treatment of the topic, see: [data Import/Export](https://cran.r-project.org/doc/manuals/r-release/R-data.html) by CRAN
+
+## Manually inputing data into R
+The short answer is, just type it in.  The long answer is to consider how the data should be structured and stored in order to achieve you short term and long term goals.  Entering data into R is not as easy as typing data into a spreadsheet like program (although versions of this do exist, but will not be covered here).  My opinion is that if the data is relatively small, or it needs to be supplied within the script, create a matrix/dataframe manually, if not, make a CSV. Opinions vary...
+
+Note: for some level of completeness, I will mention the `data.entry()` function will open up a small (Xcode on OSX) data editing window that allows for the modification and addition of data to a matrix object.  This approach is not recommended as it leaves undocumented changes in the data and can be buggy.
+
+The [`Zubrow_make_data.R`](https://github.com/mrecos/SAA_R_Demo_2016/blob/master/R_scripts/Zubrow_make_data.R) file in the `./R_scripts` folder of this repo is an example of manually entered data stored in a `*.R` file ready for digesting.
+
+### Manually entering small data
+#### single vector
+```{r vector_entry, comment = ''}
+# entrer a single vector using the c() function
+outcome_vec <- c(2.3, 3.1, 4.2, 2.0, 1.8, 5.5, 2.1, 2.9, 7.2, 6.8)
+plot(density(outcome_vec))
+```
+
+#### Matrix data entry
+```{r matrix_entry, comment = ''}
+# combine that vector with another into a matrix
+outcome_mat <- matrix(c(outcome_vec, rep(c(12,26), each = 5)), ncol = 2)
+colnames(outcome_mat) <- c("Outcome", "Test")
+print(outcome_mat)
+# plot measurement outcomes by feature
+boxplot(Outcome ~ Test, data = outcome_mat, col=(c("gray50","orange")),
+  main="Biface Maximum Width", xlab="Feature Number", ylab="Width (cm)")
+```
+
+#### Matrix data entry - additional rows
+```{r matrix_binding, comment = ''}
+# make some more vectors of same length
+outcome2 <- c(2.1, 3.5, 3.6, 1.8, 1.9, 5.2, 6.1, 3.2, 6.8, 7.3)
+outcome3 <- c(10.3, 13.1, 9.8, 12.6, 11.8, 25.5, 29.1, 32.9, 27.2, 36.8)
+# use cbind() to bind the three vectors into column of a matrix
+outcome_mat2 <- cbind(outcome_mat[,1], outcome2, outcome3, outcome_mat[,2])
+colnames(outcome_mat2) <- c("Outcome1", "Outcome2", "Outcome3", "Test")
+print(outcome_mat2)
+```
+
+#### Create a data from from vectors or matrix
+```{r dataframe_entry, comment = ''}
+# combine vectors with column names into a data.frame
+outcome_df <- data.frame(outcome1 = outcome_vec, outcome2 = outcome2, 
+                outcome3 = outcome3, test = rep(c(12,26), each = 5))
+# or just type convert the matrix to a data.frame
+outcome_df <- data.frame(outcome_mat2) # same thing if you already have a matrix
+print(outcome_df)
+
+# NOTE: data.frame() turns character vectors into factors by default. Wars have been fought over this behavior.
+```
+
+#### Make a list 
+```{r list_entry, comment=''}
+# add the vectors as named elemnts in a list
+outcome_list <- list(outcome1 = outcome_vec, outcome2 = outcome2, 
+                outcome3 = outcome3, test = rep(c(12,26), each = 5))
+print(outcome_list)
+```
+
+That is the long and short of it for manually entering data.  If it is not representable as a vector, matrix, dataframe, or list then you will need to take another approach.  However, these data structures will cover most of the basic use cases.
+
+#### Note: Long vs. Wide Data
+An important consideration in formatting data.frames and matrices is whether you want long or wide data formats.  In short, wide data is a column for each variable and a row for each observation (a more commonly encountered format). Whereas long data repeats observation row by groups of variables.  Its a little tough to describe in short, but go [here for a great explination.](http://stanford.edu/~ejdemyr/r-tutorials/wide-and-long/). The Tidyverse is adept at dealing with data reshaping tasks such as this.
+
+
+## Import from a CSV
+
+In my work flow, the most common data ingestion of from a CSV (Comma Separated Values) text file; or a CSV exported from an MS Excel file. CSV files are a very common, albeit arguably flawed, data storage method.  It is attractive because it is a simple human readable text file that requires no special software to view, read, or edit.  However, because it is plain-text, it is not space efficient or particularly fast with large data sets.  The following code will show the import of a CSV, see this [datacamp tutorial](https://www.datacamp.com/community/tutorials/r-data-import-tutorial#gs.sWblO9U)
+
+#### Import csv file
+This CSV is located in the `./data/` folder of the github repo and is call `Zubrow.csv`. This data is in long data format and will be used for a plotting example in this seminar.
+```{r csv_import, comment='', cache=TRUE}
+#getwd() could be used instead in many cases to shorten directory string
+wd <- "/Users/mattharris/Documents/R_Local/SAA_R_Demo_2016/SAA_R_Demo_2016"
+zubrow_dat <- read.csv(paste0(wd,"/data/Zubrow.csv"), stringsAsFactors = FALSE)
+head(zubrow_dat)
+
+# or, the equivalent is 
+zubrow_dat <- read.table(paste0(wd,"/data/Zubrow.csv"), sep = ",", stringsAsFactors = FALSE)
+
+```
+
+#### Excel files
+There are a handful of packages for importing directly from Excel files, these include `XLConnect` and `readxl`.  I find the CSV to be a much cleaner way to import as there is no extraneous formatting or lingering data. Your mileage may vary.
+
+
+## Data from the web
+
+Another common way to import data is from the web.  This is frequently done through an Application Program Interface (API).  Many web services have API that allow R or other languages to communicate in a unified and consistent manner to get, put, edit, and search data.  On such service is [OpenContext](https://opencontext.org/) the archaeological research reporting hub.  OpenContext has a very powerful API that we can tap into.  Unfortunately, at this time, there is no API wrapper written in R [that is mostly my fault], but we can use R to get data via URLs.
+
+I have stayed away from loading packages in these examples, but for this one, certain packages are needed.  If you do not already have the `httr` and `jsonlite` packages installed, you will need to install them by running `install.packages("httr")` and `install.packages("jasonlite")`.
+
+#### Call web servie via an API
+```{r API_call, comment='', cache = TRUE}
+# load packages with functions we need
+library("httr")
+library("jsonlite")
+# make a GET request to the subject search API URL
+req <- GET("http://opencontext.org/subjects-search/", accept_json())
+# parse content
+response <- content(req, as = "text")
+# turn into a list of data elements
+result <- fromJSON(response)
+# extract element we are looking for
+countries <- result$`oc-api:has-facets`$`oc-api:has-id-options`[[1]]
+# print the country name and number of database entries for the top 10
+head((countries[,c("label", "count")]),10)
+```
+
+## Import from R data file
+The `*.RData` format is a somewhat common, but leaning out of favor format for data sharing.  I use is for storing large data objects during computation and for storage, but have not shared it much.  The `Rdata` format is a binary file and not plain text like a CSV.  The only way to view one is to load it into R.  The `save()` and `load()` functions do just that, but there are a few tricks to them.  Below is an example of how the name of the saved object and `*.RData` file can differ and lead to headaches if you are not careful.  This is based on the `RBGlass1` data set from the `archdata` package.
+
+The `RBGlass1` data set was imported from the `archdata` package with `data(RBGlass1)` and then assigned to a similarly named object `RBGlass_1` and saved as a file called `RBGlass1.RData` by executing `save(RBGlass_1, file = "RBGlass1.RData")`.  Note that the object name and file name are different. This example uses the `ls()` function to list the objects in the environment so we can see the new object name the comes from the `load()` function.
+
+```{r rdata_import, comment=''}
+# importing an RData file
+# assign a vector of all current object names 
+objects_before <- ls()
+# set working directory to retrieve RData file
+wd <- "/Users/mattharris/Documents/R_Local/SAA_R_Demo_2016/SAA_R_Demo_2016"
+# Load file named 'RBGlass1.RData'
+load(file = paste0(wd,"/data/RBGlass1.RData"))
+# get vector of all objects after load()
+objects_after <- ls()
+# pull name of new object after load() function
+new_object <- objects_after[!(objects_after %in% objects_before)][-1]
+# print the name of the new object
+message(paste0("The new object is: ", new_object))
+# We see that the new object is names 'RBGlass_1' and not the RData file name
+head(RBGlass_1)
+
+# use rm() to remove objects created here for sake of rmarkdown
+rm(objects_before, objects_after, RBGlass_1)
+```
+
+
