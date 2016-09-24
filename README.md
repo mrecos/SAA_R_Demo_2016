@@ -34,17 +34,15 @@ In order to learn about R, it is helpful to have R!  The basic installation of R
 3) Watch a brief [RStudio intro video][R Studio Intro video] and check out the learning resources below 
 
 # Course Material
-Accompanying the online 2hr seminar, below are links to R Markdown documents that we will cover as part of learning the basics of R.  The `*.rmd` and `*.html` are stored in the `r_markdown_docs` folder of this repo; the linked html is hosted on [RPubs], but the same files are used.  The basics covered in these documents is used to support the more in-depth project examples that we will go through live during the seminar.  However, these can be used and reviewed (along with the additional learning resources linked below) at any time to help you learn the basics of R.
+Below are links to R Markdown documents that can be reviewed before or after the seminar for learning the basics of R.  The `*.rmd` and `*.html` are stored in the `r_markdown_docs` folder of this repo; the linked html is hosted on [RPubs], but the same files are used.  The basics covered in these documents are used to support the more in-depth project examples that we will go through live during the seminar.
+
 ### Basics of learning R
 1. [Introduction to basic R concepts][r_basic_concepts]
 2. [Working with data][r_working_with_data]: Operators, Loops, and Functions
 3. [Basics of creating and importing data][r_basic_data_import]
-4. Tidy Data (forthcoming...)
-5. Plotting (forthcoming...)
 
 ### Working examples of R in action
-1. Data Processing/Munging (forthcoming...)
-2. Exploratory Data Analysis (EDA) (forthcoming...)
+e2. Exploratory Data Analysis (EDA) (forthcoming...)
 3. Modeling & Machine Learning (forthcoming...)
 4. Data Visualization (forthcoming...)
 5. Reproducibility (forthcoming...)
@@ -99,47 +97,32 @@ Additional data will be in the form of CSV files and GIS shapefiles for examples
     * About me
     * Seminar Goals
     * Learning Resources
-2. Introduction to R
-    * Brief Demo
-    * Some truths about working in R
-    * Uses across science and technology
-3. R in Archaeology
+    * Sneak Peek into RStudio
+2. R in Archaeology
     * Explore existing applications of R in our field
     * Motivating examples
     * Questions...
-4. Reproducible Research
+3. Reproducible Research
     * What is it?
     * Why should I do it?
     * How do I practice reproducibility?
-5. Getting Started with R
-    * Installing (will not be done live)
-    * RStudio IDE - (Quick Demo)
-    * R package environment
-6. The basics of R - Getting your feet wet
-    * Syntax - [Link to markdown][r_basic_concepts]
-    * Data structures  - [Link to markdown][r_working_with_data]
-    * Importing data - [link to markdown][r_basic_data_import]
-    * Plotting (base R)
-7. Quick Break at half-time
-8. Introduction to Examples
-    * Motivation
-    * Scope of examples
-9. Data Entry and Preparation
-    * Data Input
-    * Viewing Data
-    * Data manipulation
-    * Example - Field Data Processing
-10. Data Analysis
+4. The Very Basics of R
+    * What is R?
+    * Approaches to working with data
+    * Tidyverse - a more intuitive approach
+5. Quick Break at half-time
+6. Example - Data Analysis and Modeling
     * Exploratory Data Analysis (EDA)
-    * Modeling
-    * Example - TBD
-11. Data Visualization
+    * Statistical Modeling
+    * Example - Dart Points and Roman Glass
+7. Example - Data Visualization
     * planning data visualizations
     * Plotting in ggplot2
     * Example - Pueblo Migration
-12. Reporting and Reproducibility
+8. Example - Reporting and Reproducibility
     * Documentation with knitr
     * Example - Bornholm grave ornamentation CA
+9. Closing Thoughts and Questions.
 
 
 
@@ -208,5 +191,6 @@ Additional data will be in the form of CSV files and GIS shapefiles for examples
    
    
    
+
 
 
