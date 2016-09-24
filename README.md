@@ -150,7 +150,7 @@ Additional data will be in the form of CSV files and GIS Shapefiles for examples
    [R Studio]: <https://www.rstudio.com/>
    [R Studio Download]: <https://www.rstudio.com/products/rstudio/download3/>
    [R Studio On-line Learning]: <https://www.rstudio.com/online-learning/>
-   [My blog]: <http://www.mathewdharris.com>
+   [My blog]: <http://www.matthewdharris.com>
    [@md_harris]: <http://twitter.com/Md_Harris>
    [Data Camp]: <https://www.datacamp.com/>
    [R Download]: <https://cran.rstudio.com/>
