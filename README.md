@@ -113,11 +113,11 @@ Additional data will be in the form of CSV files and GIS shapefiles for examples
 5. Example - Data Analysis and Modeling
     * Exploratory Data Analysis (EDA)
     * Statistical Modeling
-    * Example - Dart Points and Roman Glass
+    * Example - Ernst Cemetery & Roman Glass
 6. Example - Data Visualization
     * planning data visualizations
     * Plotting in ggplot2
-    * Example - Pueblo Migration
+    * Example - Zubrow: Pueblo Migration
 7. Example - Reporting and Reproducibility
     * Documentation with knitr
     * Example - Bornholm grave ornamentation CA
