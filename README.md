@@ -35,11 +35,19 @@ In ordet to learn about R, it is helpful to have R!  The basic installation of R
 
 # Course Material
 Accompanying the on-line 2hr seminar, below are links to R Markdown documents that we will cover as part of learning the basics of R.  The `*.rmd` and `*.html` are stored in the `r_markdown_docs` folder of this repo; the linked html is hosted on [RPubs], but the same files are used.  The bascis covered in these documents is used to support the more in-depth project examples that we will go through live during the seminar.  However, these can be used and reviewed (along with the additional learning resources linked below) at any time to help you learn the basics of R.
-
+### Basics of learning R
 1. [Introduction to basic R concepts][r_basic_concepts]
 2. [Working with data][r_working_with_data]: Operators, Loops, and Functions
 3. [Basics of creating and importing data][r_basic_data_import]
 4. Tidy Data (forth coming...)
+5. Plotting (forth coming...)
+
+### Working examples of R in action
+1. Data Processing/Munging (forth coming...)
+2. Exploratory Data Analysis (EDA) (forth coming...)
+3. Modeling & Machine Learning (forth coming...)
+4. Data Visualization (forth coming...)
+5. Reproducibility (forth coming...)
 
 # Learning resources
 The internet is full of resources (videos, blogs, tutorials, books) for learning R.  Many of these resources are worthwhile, some are exeptional, and some are a waste of time.  Sorting through them is beyond the scope of this course, but a few links below will help zero in an some of the best generalized resources:
