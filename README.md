@@ -110,19 +110,19 @@ Additional data will be in the form of CSV files and GIS shapefiles for examples
     * What is R?
     * Approaches to working with data
     * Tidyverse - a more intuitive approach
-5. Quick Break at half-time
-6. Example - Data Analysis and Modeling
+ - Quick Break at half-time
+5. Example - Data Analysis and Modeling
     * Exploratory Data Analysis (EDA)
     * Statistical Modeling
     * Example - Dart Points and Roman Glass
-7. Example - Data Visualization
+6. Example - Data Visualization
     * planning data visualizations
     * Plotting in ggplot2
     * Example - Pueblo Migration
-8. Example - Reporting and Reproducibility
+7. Example - Reporting and Reproducibility
     * Documentation with knitr
     * Example - Bornholm grave ornamentation CA
-9. Closing Thoughts and Questions.
+ - Closing Thoughts and Questions.
 
 
 
