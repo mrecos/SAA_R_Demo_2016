@@ -9,7 +9,7 @@ This is a Github repository to hold information relative to the 2-hour seminar e
 Given that the seminar is not in person, only two hours in length, and geared towards giving a broad introduction to the capabilities and potential of usnig R in arhcaeology, it is not a hands-on demo.  However, with the material presented here, attendees may download the data and code to follow along during the seminar or repeat the analysis afterwords.  Contact me at the addresses below and I will be happy to help get you started before the seminar or walk-though the material afterwards.
 
 #### About me
-My name is Matt harris, I am an archaeologist and GIS professional with 16 years of experience conducting archaeological excavations, planning GIS studies, field data collection, statistical analysis, model building, and more so these days project management and associated tasks. While I have worked at in University and State agency roles, most of my carreer thus far is in the private sector field of Cultrual Resources Management.  I currently work for [AECOM] in their Burlington, New Jersey office.
+My name is Matt Harris, I am an archaeologist and GIS professional with 16 years of experience conducting archaeological excavations, planning GIS studies, field data collection, statistical analysis, model building, and more so these days project management and associated tasks. While I have worked at in University and State agency roles, most of my carreer thus far is in the private sector field of Cultrual Resources Management.  I currently work for [AECOM] in their Burlington, New Jersey office.
 
 I can be found at:
   * [@Md_Harris] - On Twitter talking about models, data viz, and archaeology
