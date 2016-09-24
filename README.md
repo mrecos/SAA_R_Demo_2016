@@ -9,7 +9,7 @@ This is a Github repository to hold information relative to the 2-hour seminar e
 Given that the seminar is not in person, only two hours in length, and geared towards giving a broad introduction to the capabilities and potential of using R in archaeology, it is not a hands-on demo.  However, with the material presented here, attendees may download the data and code to follow along during the seminar or repeat the analysis afterwards.  Contact me at the addresses below and I will be happy to help get you started before the seminar or walk-through the material afterwards.
 
 #### About me
-My name is Matt harris, I am an archaeologist and GIS professional with 16 years of experience conducting archaeological excavations, planning GIS studies, field data collection, statistical analysis, model building, and more so these days project management and associated tasks. While I have worked at in University and State agency roles, most of my career thus far is in the private sector field of Cultural Resources Management.  I currently work for [AECOM] in their Burlington, New Jersey office.
+My name is Matt Harris, I am an archaeologist and GIS professional with 16 years of experience conducting archaeological excavations, planning GIS studies, field data collection, statistical analysis, model building, and more so these days project management and associated tasks. While I have worked at in University and State agency roles, most of my career thus far is in the private sector field of Cultural Resources Management.  I currently work for [AECOM] in their Burlington, New Jersey office.
 
 I can be found at:
   * [@Md_Harris] - On Twitter talking about models, data viz, and archaeology
@@ -27,9 +27,9 @@ The basic content includes:
  
 # Getting started: Installing R
 In order to learn about R, it is helpful to have R!  The basic installation of R provides the language and a basic editor/user interface for interactive coding.  For most Windows and Mac users, the precompiled installers should be the path of least resistance.  *nix users and those that wish to compile their own will find plenty of help on the web.  While the basic R environment is ok, there is a much better option to interface with the language; that is RStudio.  RStudio is a fully featured Interactive Development Environment (IDE) that allows you to take full advantage of R and all the added features of the IDE.  
-1) Install R from [CRAN][R download]
+1) Download and install R from [CRAN][R download]
 
-2) Install [RStudio][R Studio Download]
+2) Download and install [RStudio][R Studio Download]
 
 3) Watch a brief [RStudio intro video][R Studio Intro video] and check out the learning resources below 
 
@@ -92,7 +92,7 @@ The vast majority of the data used in the examples of the seminar are drawn from
 
 As we will cover in the seminar, installing a package in R is as simple as typing: ```install.packages("archdata")``` , then: ```library("archdata")``` to load the package, and then ```data("data-set-name")``` to load that specific data set into the environment.
 
-Additional data will be in the form of CSV files and GIS Shapefiles for examples of how to import these common data types.  These files are in the `data` folder in this GitHub repo.
+Additional data will be in the form of CSV files and GIS shapefiles for examples of how to import these common data types.  These files are in the `data` folder in this GitHub repo.
 
 # Seminar Schedule
 1. Introduction
@@ -113,7 +113,7 @@ Additional data will be in the form of CSV files and GIS Shapefiles for examples
     * How do I practice reproducibility?
 5. Getting Started with R
     * Installing (will not be done live)
-    * RStudio IDE - Demo
+    * RStudio IDE - (Quick Demo)
     * R package environment
 6. The basics of R - Getting your feet wet
     * Syntax - [Link to markdown][r_basic_concepts]
@@ -150,7 +150,7 @@ Additional data will be in the form of CSV files and GIS Shapefiles for examples
    [R Studio]: <https://www.rstudio.com/>
    [R Studio Download]: <https://www.rstudio.com/products/rstudio/download3/>
    [R Studio On-line Learning]: <https://www.rstudio.com/online-learning/>
-   [My blog]: <http://www.mathewdharris.com>
+   [My blog]: <http://www.matthewdharris.com>
    [@md_harris]: <http://twitter.com/Md_Harris>
    [Data Camp]: <https://www.datacamp.com/>
    [R Download]: <https://cran.rstudio.com/>
