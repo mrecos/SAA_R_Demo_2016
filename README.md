@@ -28,7 +28,9 @@ The basic content includes:
 # Getting started: Installing R
 In ordet to learn about R, it is helpful to have R!  The basic installation of R provides the language and a basic editor/user interface for interactive coding.  For most Windows and Mac users, the precompiled installers should be the path of least resistence.  *nix users and those that wish to compile there own will find plenty of help on the web.  While the basic R environment is ok, there is a much better option to interface with the language; that is RStudio.  RStudio is a fully featured Interactive Development Environment (IDE) that allows you to take full advantage of R and all the added features of the IDE.  
 1) Install R from [CRAN][R download]
+
 2) Install [RStudio][R Studio Download]
+
 3) Wactch a brief [RStudio intro video][R Studio Intro video] and check out the learning resources below 
 
 # Course Material
@@ -36,7 +38,8 @@ Accompanying the on-line 2hr seminar, below are links to R Markdown documents th
 
 1. [Introduction to basic R concepts][r_basic_concepts]
 2. [Working with data][r_working_with_data]: Operators, Loops, and Functions
-3. Tidy Data (forth coming...)
+3. [Basics of creating and importing data][r_basic_data_import]
+4. Tidy Data (forth coming...)
 
 # Learning resources
 The internet is full of resources (videos, blogs, tutorials, books) for learning R.  Many of these resources are worthwhile, some are exeptional, and some are a waste of time.  Sorting through them is beyond the scope of this course, but a few links below will help zero in an some of the best generalized resources:
@@ -104,10 +107,10 @@ Additional data will be in the form of CSV files and GIS Shapefiles for examples
     * Installing (will not be done live)
     * RStudio IDE - Demo
     * R package environment
-6. R Basics 
+6. The basics of R - Getting your feet wet
     * Syntax - [Link to markdown][r_basic_concepts]
     * Data structures  - [Link to markdown][r_working_with_data]
-    * Input/Output
+    * Importing data - [link to markdown][r_basic_data_import]
     * Plotting (base R)
 7. Quick Break at half-time
 8. Introdcution to Examples
@@ -187,6 +190,7 @@ Additional data will be in the form of CSV files and GIS Shapefiles for examples
    [r_working_with_data]:<http://rpubs.com/mharris/r_working_with_data>
    [RPubs]: <https://rpubs.com/>
    [wide_long_data]:<http://stanford.edu/~ejdemyr/r-tutorials/wide-and-long/>
+   [r_basic_data_import]:<http://rpubs.com/mharris/r_basic_data_import>
 
    
    
