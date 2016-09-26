@@ -45,7 +45,7 @@ Below are links to R Markdown documents that can be reviewed before or after the
 1. Exploratory Data Analysis (EDA) [markdown][ew_plot]
 2. Modeling & Machine Learning [markdown][r_ml] (time permitting)
 3. Mapping Spatial Data [markdown][r_mapping_spatial_data] (VERY SLOW LOADING!)
-4. Data Visualization (forthcoming...) (time permitting)
+4. Data Visualization [markdown][zubrown_visualization] (time permitting)
 5. Reproducibility [markdown][r_bornholm_rmarkdown]
 
 # Learning resources
@@ -184,6 +184,7 @@ Additional data will be in the form of CSV files and GIS shapefiles for examples
    [maps]:<http://eriqande.github.io/rep-res-web/lectures/making-maps-with-R.html>
    [r_mapping_spatial_data]:<http://rpubs.com/mharris/r_mapping_spatial_data>
    [r_bornholm_rmarkdown]:<http://rpubs.com/mharris/Bornholm_rmarkdown_example>
+   [zubrown_visualization]:<http://rpubs.com/mharris/r_zubrow_visualization>
 
    
    
