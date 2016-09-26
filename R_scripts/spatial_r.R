@@ -1,26 +1,26 @@
 # Description
-# A sites by types table of abundance data on vessel types in archaeological features of the 
+# A sites by types table of abundance data on vessel types in archaeological features of the
 # Younger Neolithic Michelsberg Culture from Belgium, France and Germany by Birgit Höhn (2002).
 # 
 # Details
 # Höhn (2002) recorded pottery vessel shapes from 108 archaeological features (pits, ditches etc.)
-# from 69 sites of the Central European Younger Neolithic Michelsberg Culture (MBK; 4350-3500 BC) 
+# from 69 sites of the Central European Younger Neolithic Michelsberg Culture (MBK; 4350-3500 BC)
 # following Lüning’s (1967) typology. Her correspondence analysis of the abundance data (columns 5 to 39)
-# exhibits a pronounced Guttman effect or arch, suggesting the data set is structured by a time gradient. 
-# Recently Mischka et al. (2015) projected an 109th Michelsberg assemblage, Flintbek LA48, 
-# a pit with Michelsberg pottery from a North German site of the Funnel Beaker Cul- ture (TRB), 
-# as a supplementary row into the existing chronology thereby connecting the relative chronologies 
-# of TRB and MBK. The data frame contains as attributes the references for the data, a typological 
-# key and the map projection. Note that ambiguous fragments of conical bowls (ks1 and ks2) are assigned 
+# exhibits a pronounced Guttman effect or arch, suggesting the data set is structured by a time gradient.
+# Recently Mischka et al. (2015) projected an 109th Michelsberg assemblage, Flintbek LA48,
+# a pit with Michelsberg pottery from a North German site of the Funnel Beaker Cul- ture (TRB),
+# as a supplementary row into the existing chronology thereby connecting the relative chronologies
+# of TRB and MBK. The data frame contains as attributes the references for the data, a typological
+# key and the map projection. Note that ambiguous fragments of conical bowls (ks1 and ks2) are assigned
 # as 0.5 to each of the two types resulting also in positive entries suitable to analysis by CA.
 # 
 # Source
-# Höhn, B. 2002. Die Michelsberger Kultur in der Wetterau. 
+# Höhn, B. 2002. Die Michelsberger Kultur in der Wetterau.
 # Universitätsforschungen zur prähis- torischen Archäologie 87. Bonn: Habelt.
-# Mischka, D., Roth, G. and K. Struckmeyer 2015. Michelsberg and Oxie in contact next to the Baltic Sea. 
-# In: Neolithic Diversities. Perspectives from a conference in Lund, Sweden. 
+# Mischka, D., Roth, G. and K. Struckmeyer 2015. Michelsberg and Oxie in contact next to the Baltic Sea.
+# In: Neolithic Diversities. Perspectives from a conference in Lund, Sweden.
 # Acta Archaeologica Lundensia Ser. 8, No. 65, edited by Kr. Brink et al., pp 241–250.
-# Lüning, J. 1967. Die Michelsberger Kultur: Ihre Funde in zeitlicher und räumlicher Gliederung. 
+# Lüning, J. 1967. Die Michelsberger Kultur: Ihre Funde in zeitlicher und räumlicher Gliederung.
 # Berichte der Römisch-Germanischen Kommission 48, 1-350.
 
 library("archdata") # where the data comes from
@@ -48,20 +48,21 @@ summary(mb)
 ### create objects for geographic coordinate systems
 ## Proj4string from http://spatialreference.org/
 # UTM 1983 zone 32 North
-UTM32n <- CRS("+proj=utm +zone=32 +ellps=WGS84 +datum=WGS84 +units=m +no_defs")WGS84 <- CRS("+proj=longlat +ellps=WGS84 +datum=WGS84") 
+UTM32n <- CRS("+proj=utm +zone=32 +ellps=WGS84 +datum=WGS84 +units=m +no_defs") 
 # World Geographic System 1984 (lat/long)
 WGS84 <- CRS("+proj=longlat +ellps=WGS84 +datum=WGS84") 
 
 ### Create a spatialpointsdataframe object from our data
 ## pass long, lat, and data to function.  
 ## crs = the proper coordinate system as described in archdata package reference
-mb_spat <-  SpatialPointsDataFrame(mb[,c("x_utm32n", "y_utm32n")], mb, proj4string = UTM32n)
-
+mb_spat <-  SpatialPointsDataFrame(coords = mb[,c("x_utm32n", "y_utm32n")], 
+                                   data = mb, 
+                                   proj4string = UTM32n)
 ### Start to make maps!
 ## most basic plot (points)
 plot(mb_spat)
 
-## Putting it in geographi context
+## Putting it in geographic context
 # get country boundary data
 data(countriesLow)
 # transform Michelsberg site data from UTM83n to WGS84
@@ -85,6 +86,26 @@ base_map <- get_map(location = "Frankfurt, Germany", zoom = 6, color = "bw")
 ggmap(base_map, extent = "normal") +
   geom_point(aes(x = x_WGS84, y = y_WGS84, color = t2a), data = mb, alpha = .8, size = 4) +
   scale_color_distiller(palette = "PuOr", direction = 1) +
+  theme_bw(16)
+
+### Adding a shapefile
+wd <- "/Users/mattharris/Documents/R_Local/SAA_R_Demo_2016/SAA_R_Demo_2016"
+germany <- readOGR(paste0(wd, "/data/DEU_adm0.shp"), layer = "DEU_adm0")
+germany <- spTransform(germany, WGS84)
+germany <- gSimplify(germany, tol=0.001, topologyPreserve=TRUE)
+plot(germany)
+
+## fortifying for ggplot
+germany_fort <- ggplot2::fortify(germany)
+# basemap with points and SHP
+ggmap(base_map, extent = "normal") +
+  geom_polygon(data = germany, aes(x=long, y=lat, group=group), 
+               fill = "transparent", color = "gray10", size = 1) +
+  geom_point(aes(x = x_WGS84, y = y_WGS84, color = t2a), 
+             data = mb, alpha = .8, size = 4) +
+  scale_color_distiller(palette = "PuOr", direction = 1) +
+  coord_map(ylim = c(min(mb$y_WGS84), max(mb$y_WGS84)),
+              xlim = c(min(mb$x_WGS84), max(mb$x_WGS84))) +
   theme_bw(16)
 
 ### Adding spatial analysis to our map
@@ -113,8 +134,8 @@ ggmap(base_map, extent = "normal") +
 x.range <- as.numeric(c(min(mb$x_WGS84), max(mb$x_WGS84)))  # min/max longitude of the interpolation area
 y.range <- as.numeric(c(min(mb$y_WGS84), max(mb$y_WGS84)))  # min/max latitude of the interpolation area  
 # from the range, exapnd the coordinates to make a regular grid
-grd <- expand.grid(x = seq(from = x.range[1], to = x.range[2], by = 0.1), 
-                   y = seq(from = y.range[1], to = y.range[2], by = 0.1))  # expand points to grid
+grd <- expand.grid(x = seq(from = x.range[1], to = x.range[2], by = 0.075), 
+                   y = seq(from = y.range[1], to = y.range[2], by = 0.075))  # expand points to grid
 # make the crid into spatial coords, grid, add spatial reference
 coordinates(grd) <- ~x + y
 gridded(grd) <- TRUE
@@ -146,14 +167,14 @@ idw.output = as.data.frame(idw)  # output is defined as a data table
 # set the names of the idw.output columns
 # basic ggplot using geom_tile to display our interpolated grid within no map
 ggplot() + 
-  geom_tile(data = idw.output, aes(x = long, y = lat, fill = var1.pred)) + 
+  geom_tile(data = idw.output, aes(x = x, y = y, fill = var1.pred)) + 
   geom_point(data = mb, aes(x = x_WGS84, y = y_WGS84), shape = 21, color = "red") +
   scale_fill_distiller(palette = "PuOr", direction = 1) +
   theme_bw() 
 # use ggmap as earlier to display interpolation in geographic space
-# Can take a LONG time to render (~1 minute)
+# Can take a LONG time to render (~2 minutes)
 ggmap(base_map, extent = "normal") +
-  geom_tile(data = idw.output, aes(x = long, y = lat, fill = var1.pred), alpha = 0.75) + 
+  geom_tile(data = idw.output, aes(x = x, y = y, fill = var1.pred), alpha = 0.75) + 
   geom_point(data = mb, aes(x = x_WGS84, y = y_WGS84), shape = 19, color = "red") +
   scale_fill_distiller(palette = "PuOr", direction = 1) +
   theme_bw() 
@@ -161,7 +182,14 @@ ggmap(base_map, extent = "normal") +
 
 ### Create an interactive map!
 ## quick and dirty interactive map of site locations
-mapview(mb_spat_WGS84)
+maplayer1 <- mapview(germany)
+
+## interactive map with layers
+maplayer1 <- mapview(germany, 
+                     color = "gray10", 
+                     alpha.regions = 0)
+maplayer2 <- mapview(mb_spat_WGS84)
+maplayer1 + maplayer2
 
 ### Create interactive map of IDW results
 ## use raster packaage to turn IDW into raster object
@@ -188,11 +216,12 @@ spplot(idw_raster_crop)
 ### Use mapview package to create layered interactive map with
 ### basemap, data points, interpolated raster, and contours
 ## made in three seperate layers
-m1 <- mapview(mb_spat_WGS84, legend = TRUE, zcol = "new_type")
-m2 <- mapview(idw_raster_crop, alpha.regions = 0.50, na.color = "transparent")
-m3 <- mapview(idw_contour, lwd = 1.5, color = "gray40")
+m1 <- mapview(germany, color = "black", alpha.regions = 0)
+m2 <- mapview(mb_spat_WGS84, legend = TRUE, zcol = "new_type")
+m3 <- mapview(idw_raster_crop, alpha.regions = 0.50, na.color = "transparent")
+m4 <- mapview(idw_contour, lwd = 1.5, color = "gray40")
 # combine layers to plot
-m1 + m2 + m3
+m1 + m2 + m3 + m4
 
 
 
