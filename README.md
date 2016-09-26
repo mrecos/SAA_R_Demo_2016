@@ -44,7 +44,7 @@ Below are links to R Markdown documents that can be reviewed before or after the
 ### Working examples of R in action
 1. Exploratory Data Analysis (EDA) [markdown][ew_plot]
 2. Modeling & Machine Learning [markdown][r_ml] (time permitting)
-3. Mapping Spatial Data [markdown][r_mapping_spatial_data]
+3. Mapping Spatial Data [markdown][r_mapping_spatial_data] (VERY SLOW LOADING!)
 4. Data Visualization (forthcoming...) (time permitting)
 5. Reproducibility (forthcoming...)
 
@@ -120,7 +120,7 @@ Additional data will be in the form of CSV files and GIS shapefiles for examples
 6. Example - Mapping Spatial Data
     * Spatial packages
     * Visualizing
-    * Example - [Michelsberg Vessels][r_mapping_spatial_data]
+    * Example - [Michelsberg Vessels][r_mapping_spatial_data] (VERY SLOW LOADING!)
 7. Example - Reporting and Reproducibility
     * Documentation with knitr
     * Example - Bornholm grave ornamentation CA
