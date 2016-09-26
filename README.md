@@ -64,6 +64,7 @@ The internet is full of resources (videos, blogs, tutorials, books) for learning
 - [R Tutorial from UCLA]
 - [ggplot2 Tutorial]
 - Tutorials on [spatial topics][neon] raster, vector, time series, etc...
+- [Making Maps with R][maps]
 
 Resources specific to R in archaeology are not numerous, but there are a growing number of really great resources:
 - Nakoinz and Knitter's new book [Modelling Human Behaviour in Landscapes][mhbil] and its [associated GitHub site][mhbil_gh] with chapter by chapter R code!
@@ -178,6 +179,7 @@ Additional data will be in the form of CSV files and GIS shapefiles for examples
    [r_basic_data_import]:<http://rpubs.com/mharris/r_basic_data_import>
    [r_ml]:<http://rpubs.com/mharris/r_machine_learning>
    [ew_plot]:<http://rpubs.com/mharris/Ernst_Cemetery_example>
+   [maps]:<http://eriqande.github.io/rep-res-web/lectures/making-maps-with-R.html>
 
    
    
