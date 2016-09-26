@@ -1,6 +1,6 @@
+library("archdata")
 library("dplyr")
 library("tidyr")
-# devtools::install_github("hadley/ggplot2")
 library("ggplot2") # dev version
 library("scales")
 
@@ -57,4 +57,4 @@ ggplot(ew2, aes(x = Age, y = pcnt, group = Sex, fill = Sex)) +
     panel.spacing = unit(1, "lines")
   )
 
-ggsave("Witte_cemetery_grace_good_pcnt.png")
+# ggsave("Witte_cemetery_grace_good_pcnt.png")

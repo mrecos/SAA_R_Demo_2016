@@ -1,0 +1,142 @@
+---
+title: "Ernst Cemetery Example"
+author: "MDH"
+date: "September 25, 2016"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Ernst-Witte Site Burials Analysis
+
+This example runs through the exploratory data analysis (EDA) of the Ernst-Witte burials data.  Following this is the creation of a presentable plot of percent pf grave goods over individual age by time period.  Dplyr data munging is used to transform from the original dat a to a format the is useful for this plot.
+
+This data set includes sex, age, burial group, location, and burial orientation and direction facing from the Ernest Witte
+site, a Late Archaic cemetery in Texas (Hall 1981).
+
+#### Note about ggplot2 version
+this relies on the development version of ggplot2 for the subtitle and caption text.  To install this version, first install the `devtools` package `install.packages("devtools")`, then install ggplot from github `devtools::install_github("hadley/ggplot2")`.  If you do not do this and have the CRAN version, everything should work except the subtitle and caption, and you will get a warning.
+
+
+### Load packages
+```{r libraries, comment=''}
+library("archdata")
+library("dplyr")
+library("tidyr")
+library("ggplot2") # dev version
+library("scales")
+```
+
+### assign to `ew` object
+```{r load_data, comment=''}
+data(EWBurials)
+ew <- EWBurials
+```
+
+### Explore data structure
+Common use of `str()`, `summary()`, and `head()`
+```{r eds, comment=''}
+str(ew)
+summary(ew)
+head(ew)
+```
+
+
+### Data processing
+The purpose of this data processing is to go from the wide data format to a long dat format that answers the question: what is the percent of grave goods by male/female for each burial individual age and period of burial.
+
+The process below follows:
+  * `group_by` to group the data by Age, Sex, and Group (period)
+  * `mutate` the data to change the values of `Goods` to presence/absence
+  * `summarise` the data to `sum` the presence of Goods
+  * count the sum of Goods with `n()`
+  * and calculate the percent of grave goods
+  * the data are `ungroup`'ed 
+  * finally, `complete` creates all potential combinations of Age, Sex and Group and fills in those without a percent with a `0`.
+  
+The final step using `complete` makes piloting more consistent.
+```{r dplyr, comment=''}
+ew2 <- group_by(ew, Age, Sex, Group) %>%
+  mutate(Goods = ifelse(Goods == "Present", 1, 0)) %>%
+  summarise(sum_goods = sum(Goods),
+            cnt = n(),
+            pcnt = sum_goods/cnt) %>%
+  ungroup() %>%
+  tidyr::complete(Age, Sex, Group, fill = list(pcnt = 0))
+```
+
+#### Preliminary plot
+Plot the data from the dplyr sequence for a sanity check
+```{r initial_plot, comment=''}
+ggplot(ew2, aes(x = Age, y = pcnt, group = Sex, fill = Sex)) + 
+  geom_bar(stat = "identity", position = "dodge")
+```
+
+### Build ggplot
+Once the data is worked into the format desired to answer the question we are interested in, we can build a ggplot to display the results.
+
+The following plot uses the long dat format created above, uses the `facet_grid()` function to split the plots into two broad time periods, `scale_fill_manual()` to set custom fill colors, a bunch of calls to `theme()` to adjust plot elements, and finally within `theme()` uses `legend.position()` to move the legend to a spot within the plot.
+
+In less than 100 lines of code, we took data from its original format, transformed it to address a specific question, and then made a publication ready plot.
+
+```{r final_plot, comment=''}
+group_names <- c(`1` = " 2000 - 1200 BCE", `2` = " CE 200 - 500")
+
+ggplot(ew2, aes(x = Age, y = pcnt, group = Sex, fill = Sex)) + 
+  geom_bar(stat = "identity", position = "dodge") +
+  geom_hline(yintercept = 0, color = "gray70") +
+  theme_bw() +
+  scale_fill_manual(values = c("darkgoldenrod2", "slategrey")) +
+  scale_y_continuous(labels = scales::percent) +
+  labs(title="Percent of Grave Goods by Age, Sex, and Temporal Group",
+       subtitle="Ernest Witte site, Austin County, Texas",
+       caption="Data: Hall,G.D. (1981)",
+       y = "Grave Good Presence") +
+  facet_grid(Group~., labeller = as_labeller(group_names)) +
+  theme(
+    strip.background = element_rect(colour = "white", fill = "white"),
+    strip.text.y = element_text(colour = "black", size = 10, face = "bold", 
+                                family = "Trebuchet MS"),
+    panel.border = element_rect(color = "gray90"),
+    axis.text.x = element_text(angle = 0, size = 10, family = "Trebuchet MS"),
+    axis.text.y = element_text(size = 9, family = "Trebuchet MS"),
+    axis.title.y = element_text(size = 11, family = "Trebuchet MS"),
+    axis.title.x = element_blank(),
+    plot.caption = element_text(size = 10, hjust = 0, margin=margin(t=10), 
+                                family = "Trebuchet MS"),
+    plot.title=element_text(family="TrebuchetMS-Bold"),
+    plot.subtitle=element_text(family="TrebuchetMS-Italic"),
+    panel.grid.major.x = element_blank(), 
+    panel.grid.minor.x = element_blank(),
+    panel.grid.minor.y = element_blank(),
+    legend.position = c(0.1, 0.85),
+    panel.spacing = unit(1, "lines")
+  )
+```
+
+
+## Data set information
+
+#### Details
+The Ernest Witte site in Austin County, Texas contains four burial groups from different time periods.
+Group 1 includes 60 interments and that occurred between about 2000 and 1200 BCE. Group
+2 is the largest with 148 interments. The burials in this group were interred between about CE 200
+and 500. Groups 3 and 4 include only 10 and 13 interments and date to CE 500 to 1500, but are
+not included in this data set which was taken from Appendix II (Hall 1981). Two of the variables,
+direction and looking, are circular data and require package circular. Hall (2010) provides a
+summary of the site and its significance.
+
+
+#### Source
+Hall, G. D. 1981. Allen’s Creek: A Study in the Cultural Prehistory of the Lower Brazos River
+Valley. The University of Texas at Austin. Texas Archaeological Survey. Texas. Research Report No.
+61.
+
+
+#### References
+Hall, G. D. 2010. Ernest Witte site. Handbook of Texas Online http://www.tshaonline.org/
+handbook/online/articles/bbe05. Texas State Historical Association
+
+
