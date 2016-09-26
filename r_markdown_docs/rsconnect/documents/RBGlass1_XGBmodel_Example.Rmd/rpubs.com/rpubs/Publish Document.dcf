@@ -3,5 +3,5 @@ account: rpubs
 server: rpubs.com
 appId: https://api.rpubs.com/api/v1/document/212510/ea03fb05904f49cc835ba1dcffc1ff83
 bundleId: https://api.rpubs.com/api/v1/document/212510/ea03fb05904f49cc835ba1dcffc1ff83
-url: http://rpubs.com/publish/claim/212510/a9a1df1cb85b4c63afd4aedbf61d00ae
-when: 1474852019.98346
+url: http://rpubs.com/mharris/212510
+when: 1474852497.66222
