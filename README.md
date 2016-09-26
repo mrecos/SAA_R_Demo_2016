@@ -48,6 +48,8 @@ Below are links to R Markdown documents that can be reviewed before or after the
 5. Reproducibility [markdown][r_bornholm_rmarkdown]
 
 # Learning resources
+
+### General R Resources
 The internet is full of resources (videos, blogs, tutorials, books) for learning R.  Many of these resources are worthwhile, some are exceptional, and some are a waste of time.  Sorting through them is beyond the scope of this course, but a few links below will help zero in an some of the best generalized resources:
 - Where to [find help][DC_help] with R
 - [Google Intro to R videos]
@@ -66,6 +68,7 @@ The internet is full of resources (videos, blogs, tutorials, books) for learning
 - Tutorials on [spatial topics][neon] raster, vector, time series, etc...
 - [Making Maps with R][maps]
 
+### R Resources Specific to Archaeology
 Resources specific to R in archaeology are not numerous, but there are a growing number of really great resources:
 - Nakoinz and Knitter's new book [Modelling Human Behaviour in Landscapes][mhbil] and its [associated GitHub site][mhbil_gh] with chapter by chapter R code!
 - Ben Marwick's [Archaeological Science Github page][MarwickGH] - A very extensive list of tools and resources.  A really great resource!
@@ -77,6 +80,7 @@ Resources specific to R in archaeology are not numerous, but there are a growing
 - David Carlson's [An R Companion to Statistics for Archaeologists by Robert Drennan][CarlsonStats] - a dense, but complete read when accompanying Drennan's book.
 - Matt Peeples [Research page][Peeples] 
 
+### R Resources for Reproducible Research
 Resources for getting started learning and practicing Reproducible Research:
 - rOpenSci [Reproducibility Guide][rOpenSci_reproducible]: a great intro to why & how with in-depth links.
 - Ben Marwick's slidedeck for [Reproducible Research" A Primer for the Social Sciences][marwickslides]
