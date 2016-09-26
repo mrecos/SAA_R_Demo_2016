@@ -42,7 +42,7 @@ Below are links to R Markdown documents that can be reviewed before or after the
 3. [Basics of creating and importing data][r_basic_data_import]
 
 ### Working examples of R in action
-e2. Exploratory Data Analysis (EDA) (forthcoming...)
+e2. Exploratory Data Analysis (EDA) [markdown][ew_plot]
 3. Modeling & Machine Learning [markdown][r_ml]
 4. Data Visualization (forthcoming...)
 5. Reproducibility (forthcoming...)
@@ -113,7 +113,7 @@ Additional data will be in the form of CSV files and GIS shapefiles for examples
 5. Example - Data Analysis and Modeling
     * Exploratory Data Analysis (EDA)
     * Statistical Modeling
-    * Example - Ernst Cemetery & Roman Glass
+    * Example - [Ernst Cemetery][ew_plot] & [Roman Glass][r_ml]
 6. Example - Data Visualization
     * planning data visualizations
     * Plotting in ggplot2
@@ -177,6 +177,7 @@ Additional data will be in the form of CSV files and GIS shapefiles for examples
    [wide_long_data]:<http://stanford.edu/~ejdemyr/r-tutorials/wide-and-long/>
    [r_basic_data_import]:<http://rpubs.com/mharris/r_basic_data_import>
    [r_ml]:<http://rpubs.com/mharris/r_machine_learning>
+   [ew_plot]:<http://rpubs.com/mharris/Ernst_Cemetery_example>
 
    
    
