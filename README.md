@@ -35,12 +35,10 @@ In order to learn about R, it is helpful to have R!  The basic installation of R
 
 # Course Material
 Below are links to R Markdown documents that can be reviewed before or after the seminar for learning the basics of R.  The `*.rmd` and `*.html` are stored in the `r_markdown_docs` folder of this repo; the linked html is hosted on [RPubs], but the same files are used.  The basics covered in these documents are used to support the more in-depth project examples that we will go through live during the seminar.
-
 ### Basics of learning R
 1. [Introduction to basic R concepts][r_basic_concepts]
 2. [Working with data][r_working_with_data]: Operators, Loops, and Functions
 3. [Basics of creating and importing data][r_basic_data_import]
-
 ### Working examples of R in action
 1. Exploratory Data Analysis (EDA) [markdown][ew_plot]
 2. Modeling & Machine Learning [markdown][r_ml] (time permitting)
