@@ -1,3 +1,9 @@
+library("dplyr")
+library("tidyr")
+# devtools::install_github("hadley/ggplot2")
+library("ggplot2") # dev version
+library("scales")
+
 data(EWBurials)
 ew <- EWBurials
 
@@ -5,14 +11,6 @@ str(ew)
 summary(ew)
 head(ew)
 
-xtabs(~Age+Sex+Group, ew)
-library(circular)
-plot(ew$Direction)
-
-plot(ew$North ~ ew$West)
-
-library("dplyr")
-library("tidyr")
 # looking for % of grave with good per sex and age.
 ew2 <- group_by(ew, Age, Sex, Group) %>%
   mutate(Goods = ifelse(Goods == "Present", 1, 0)) %>%
@@ -22,9 +20,7 @@ ew2 <- group_by(ew, Age, Sex, Group) %>%
   ungroup() %>%
   tidyr::complete(Age, Sex, Group, fill = list(pcnt = 0))
 
-# devtools::install_github("hadley/ggplot2")
-library("ggplot2") # dev version
-library("scales")
+
 ggplot(ew2, aes(x = Age, y = pcnt, group = Sex, fill = Sex)) + 
   geom_bar(stat = "identity", position = "dodge")
 
@@ -35,7 +31,7 @@ ggplot(ew2, aes(x = Age, y = pcnt, group = Sex, fill = Sex)) +
   geom_hline(yintercept = 0, color = "gray70") +
   theme_bw() +
   scale_fill_manual(values = c("darkgoldenrod2", "slategrey")) +
-  scale_y_continuous(labels=percent) +
+  scale_y_continuous(labels = scales::percent) +
   labs(title="Percent of Grave Goods by Age, Sex, and Temporal Group",
        subtitle="Ernest Witte site, Austin County, Texas",
        caption="Data: Hall,G.D. (1981)",
@@ -45,7 +41,7 @@ ggplot(ew2, aes(x = Age, y = pcnt, group = Sex, fill = Sex)) +
     strip.background = element_rect(colour = "white", fill = "white"),
     strip.text.y = element_text(colour = "black", size = 10, face = "bold", 
                                 family = "Trebuchet MS"),
-    panel.border = element_rect(colour = "gray90"),
+    panel.border = element_rect(color = "gray90"),
     axis.text.x = element_text(angle = 0, size = 10, family = "Trebuchet MS"),
     axis.text.y = element_text(size = 9, family = "Trebuchet MS"),
     axis.title.y = element_text(size = 11, family = "Trebuchet MS"),

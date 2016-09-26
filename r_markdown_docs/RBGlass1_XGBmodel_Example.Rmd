@@ -1,0 +1,172 @@
+---
+title: "RBGlass1 Model Example"
+author: "MDH"
+date: "September 24, 2016"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Identifying Roman Glass Site Provenience
+
+This data set details the concentrations for 11 major and minor elements in 105 Romano-British waste glass specimens from two furnace sites, Leicester and Mancetter. This short analysis includes two portions, 1) use `dplyr` and `ggplot` to see the distributions of trace elements between the two furnace sites; and 2) use a machine learning technique to classify the observations by furnace, predict the furnace of test observations, establish the error rate, and finally visualize which trace elements contribute to correct classifications. 
+
+#### Note about ggplot2 version
+this relies on the development version of ggplot2 for the subtitle and caption text.  To install this version, first install the `devtools` package `install.packages("devtools")`, then install ggplot from github `devtools::install_github("hadley/ggplot2")`.  If you do not do this and have the CRAN version, everything should work except the subtitle and caption, and you will get a warning.
+
+### Load packages
+```{r libraries, comment=''}
+library("archdata") # for RBGlass1 data
+library("xgboost") # Extremee Gradient Boosting model
+library("Ckmeans.1d.dp") # for plotting variable importance
+library("ggplot2") # Development version, see note above
+library("dplyr") # for data munging
+library("reshape2") # for melt()
+library("tidyr") # for separate()
+```
+
+### Grab data and assign
+```{r assign_data, comment=''}
+# from archdata package
+data(RBGlass1)
+# to save some key strokes
+rbg <- RBGlass1
+# table of number of obervations for each furnace
+table(rbg$Site)
+```
+
+### Reshape data
+The first step in this analysis is to explor that differnece in element concentrations between furnaces.  To do do, we need to summarise the 105 measurements from each furnace. [note: there are quicker ways to do this, but it demonstrates the point of piping data between data manipulating functions]
+```{r reshape, comment=''}
+rbg_elements <- group_by(rbg, Site) %>%
+  summarise_each(funs(mean, median, sd)) %>%
+  t %>%
+  as.data.frame( stringsAsFactors = FALSE) %>% 
+  tibble::rownames_to_column() %>%
+  rename(Leicester = V1,  Mancetter = V2) %>%
+  filter(!grepl('Site', rowname)) %>%
+  mutate(Leicester = round(as.numeric(Leicester),3),
+         Mancetter = round(as.numeric(Mancetter),3)) %>%
+  separate(rowname, into = c("element", "measure"), sep = "_") %>%
+  print
+```
+
+#### Plot a representation
+The `ggplot` below takes the results of the previous processing, filters to the mean measurment, and plots them over elements by furnace.
+
+```{r plot_reshape, comment=''}
+rbg_plot_mean <- reshape2::melt(rbg_elements) %>%
+  filter(measure == "mean") %>%
+  ggplot(aes(x = element, y = value, color = variable)) +
+           geom_point() + 
+  scale_y_log10() +
+  theme_bw()
+
+rbg_plot_mean
+```
+
+## Model with Machine Learning
+
+Described as simply modeling, statistical learning, or machine learning the process of training models via the optimization of hyperparameters for the purpose of prediction is a very powerful approach in modern statistics and data science.  In a somewhat false dichotomy, statistical learning is differeniated from statistical analysis by the goal of the modeling enterprise; prediction vs. inference.  Below is a quick example of using a very popular learning algorithm, extreme gradient boosting, for the classificaiton of Roman glass furnaces and an exploration of which elements differentiate them.  There are a number of clustering methods that could also be used to approach these data.
+
+### Split data into train (75%) and test (25%) data sets
+A very important part of establishing error rates for model prediction includes testing the model on an independent data set.  The approach taken here uses a simple split sample (75%/25%) for model training and testing.  In a more realistic setting, a more rigorous approach, such as k-folds Cross Validation, would be used.  Split sampling is not an inherently bad technique, but it can lead to high variance and possible over fitting if the samples are not representative of the population.  But for this demo, it is sufficient.
+
+```{r split_data, comment=''}
+# convert the factor values of the furnace sites (1,2) to a binary (0,1) numeric values
+rbg$Site <- as.numeric(rbg$Site)-1
+# set random seed
+set.seed(3323)
+# take a random 75% sample of row numbers from the data
+train_index <- sample(nrow(rbg), floor(nrow(rbg)*0.75))
+# assign the just the rows randomly sampled above to the training dataset
+train_dat <- rbg[train_index,]
+# assign all rows except the training rows to the test data
+test_dat <- rbg[-train_index,]
+```
+
+### Train XGB model on traning data
+
+The `xgboost` package implements a supervised regression/classification model called *extreme gradient boosting*.  In a very simple description, you can think of this model as a sequence of simple regression models that are repeated a over and over trying to improve the errors from the previous round.  The basic theory that makes this work is that a many weak models can be added together to create a strong model.  For further study of [Statistical Learning](http://www-bcf.usc.edu/~gareth/ISL/) techniques, this side and book are highly recommended.
+
+Training a model in R is deceptively simple.  Simple because the syntax to do so is fairly consistent between packages and typically the default parameter values are reasonably set.  They can be used as black boxes without much thought, but it is highly suggested that you spend time learning about how the model works and tuning hyper-parameters to go the best fit for your purpose.  This demo will used the `xgboost` defaults.
+
+The `data` argument in the `xgboost()` function gets passed the training data, but as doing so it is converted from a data.frame to a matrix with `as.matrix()` function and the first row of the training data is dropped through `[,-1]`.  The first row is the `Site` column containing the furnace designation.
+
+The `label` argument is the furnace designation as the `Site` column.  The `nrounds` argument is the number of repetitions that model goes through to improve results.  The `objective` argument is where we tell the model to perform linear regression or logistic regression for classification.
+```{r XGB_train, comment=''}
+model1 <- xgboost(data = as.matrix(train_dat[,-1]), 
+                  label = train_dat$Site,
+                  nrounds = 10,
+                  objective = "binary:logistic")
+```
+
+### Make predictions based on test data
+
+From the trained model, predictions can be made on new data.  In this case, the new data is the 25% held-out sample.  The test data.frame is passed to the `predict()` function in the same way as the test data; converted to a matrix and dropped the first column. We do not need to pass the `label` argument to to `predict()` because the true class labels (furnace) are not needed to predict.
+
+In the second line, a new `data.frame` is made by creating two rows, the `predicted` values and the `observed` values.  Note that the predictions are within the range of `[0,1]` so a threshold of `0,5` is used to classify the predictions into the predicted furnace designation, `0` or `1`.
+
+```{r predict, comment=''}
+pred1 <- predict(model1, newdata = as.matrix(test_dat[,-1]))
+prediction <- data.frame(predicted = as.numeric(pred1 > 0.5),
+                         observed = test_dat$Site)
+```
+
+### Confusion Matrix and Error Rate
+
+A confusion matrix is a table that shows the predictions and observations in a 2-way table that depicts true-positive, false-positive, and true and false negatives.  Following the confusion matrix, an absolute error rate is calculated as simply the percent incorrect predictions.
+
+```{r error_rate, comment=''}
+prediction$predicted <- ifelse(prediction$predicted == 1, 
+                               "Leicester", "Mancetter")
+prediction$observed <- ifelse(prediction$observed == 1, 
+                               "Leicester", "Mancetter")
+table(prediction)
+err <- mean(prediction$predicted != prediction$observed)
+print(paste("test-error =", round(err,3)*100, "%"))
+```
+
+### Varaible Importance
+
+Finally, the xgboost algorithm, as well as some other similar algorithms, allow for the calculation of variable importance (VI). A number of methods can be used to estimate VI, including random permutation, Gini distance, out-of-bag-error, etc... The end result is an attempt to quantify which variables contributed to the correct predictions.  Here we use the `xgb.importance()` function on our training data and fit model. The results are printed and then plotted as a `ggplot` object.
+
+```{r variable_importance, comment=''}
+importance_matrix <- xgb.importance(colnames(train_dat[,-1]),
+                                    model = model1)
+print(importance_matrix)
+xgb.plot.importance(importance_matrix = importance_matrix) +
+  theme_bw()
+
+```
+
+
+
+## Dataset Information
+
+#### Details
+The concentrations for 11 major and minor elements in 105 Romano-British waste glass specimens
+from two furnace sites (Leicester and Mancetter) come from Caroline Jackson’s Ph. D. thesis at
+Bradford University. The data here were scanned from from Baxter (1994) Table A1. Measurements
+are percentage for each element.
+
+#### Source
+Baxter, M. J. 1994. Exploratory Multivariate Analysis in Archaeology. Edinburgh University Press.
+Jackson, C. M. 1992. A Compositional Analysis of Roman and Early Post-Roman Glass and Glass
+Working Waste from Selected British Sites Towards an Understanding of the Technology of GlassMaking
+Through Analysis by Inductively-Coupled Plasma Spectrometry. Unpublished PhD thesis.
+Bradford University (BL: D214554).
+
+#### References
+Baxter, M. J., Cool H.E.M., Heyworth M.P. and Jackson, C.M. 1995. Compositional Variability in
+Colourless Roman Vessel Glass. Archaeometry 37(1), 129-141.
+Baxter, M. J., Cool, H. E. M. and Jackson, C. M. (2005). Further Studies in the Compositional
+Variability of Colourless Romano-British Glass. Archaeometry 47, 47-68.
+Jackson, C M, J R Hunter, S E Warren, and H E M Cool. 1991. The Analysis of Blue-Green Glass
+and Glassy Waste from Two Romano-British Glass Working Sites. In A
+
+
+
+
