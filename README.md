@@ -43,7 +43,7 @@ Below are links to R Markdown documents that can be reviewed before or after the
 
 ### Working examples of R in action
 e2. Exploratory Data Analysis (EDA) (forthcoming...)
-3. Modeling & Machine Learning (forthcoming...)
+3. Modeling & Machine Learning [markdown][r_ml]
 4. Data Visualization (forthcoming...)
 5. Reproducibility (forthcoming...)
 
@@ -176,6 +176,7 @@ Additional data will be in the form of CSV files and GIS shapefiles for examples
    [RPubs]: <https://rpubs.com/>
    [wide_long_data]:<http://stanford.edu/~ejdemyr/r-tutorials/wide-and-long/>
    [r_basic_data_import]:<http://rpubs.com/mharris/r_basic_data_import>
+   [r_ml]:<http://rpubs.com/mharris/r_machine_learning>
 
    
    
