@@ -46,7 +46,7 @@ Below are links to R Markdown documents that can be reviewed before or after the
 2. Modeling & Machine Learning [markdown][r_ml] (time permitting)
 3. Mapping Spatial Data [markdown][r_mapping_spatial_data] (VERY SLOW LOADING!)
 4. Data Visualization (forthcoming...) (time permitting)
-5. Reproducibility (forthcoming...)
+5. Reproducibility [markdown][r_bornholm_rmarkdown]
 
 # Learning resources
 The internet is full of resources (videos, blogs, tutorials, books) for learning R.  Many of these resources are worthwhile, some are exceptional, and some are a waste of time.  Sorting through them is beyond the scope of this course, but a few links below will help zero in an some of the best generalized resources:
@@ -123,7 +123,7 @@ Additional data will be in the form of CSV files and GIS shapefiles for examples
     * Example - [Michelsberg Vessels][r_mapping_spatial_data] (VERY SLOW LOADING!)
 7. Example - Reporting and Reproducibility
     * Documentation with knitr
-    * Example - Bornholm grave ornamentation CA
+    * Example - [Bornholm grave ornamentation CA][r_bornholm_rmarkdown]
 
 [//]: # (These are reference links used in the body of this note and get stripped out when the markdown processor does its job. There is no need to format nicely because it shouldn't be seen. Thanks SO - http://stackoverflow.com/questions/4823468/store-comments-in-markdown-syntax)
 
@@ -183,6 +183,7 @@ Additional data will be in the form of CSV files and GIS shapefiles for examples
    [ew_plot]:<http://rpubs.com/mharris/Ernst_Cemetery_example>
    [maps]:<http://eriqande.github.io/rep-res-web/lectures/making-maps-with-R.html>
    [r_mapping_spatial_data]:<http://rpubs.com/mharris/r_mapping_spatial_data>
+   [r_bornholm_rmarkdown]:<http://rpubs.com/mharris/Bornholm_rmarkdown_example>
 
    
    
