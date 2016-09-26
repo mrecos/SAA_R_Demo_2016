@@ -39,6 +39,7 @@ Below are links to R Markdown documents that can be reviewed before or after the
 1. [Introduction to basic R concepts][r_basic_concepts]
 2. [Working with data][r_working_with_data]: Operators, Loops, and Functions
 3. [Basics of creating and importing data][r_basic_data_import]
+
 ### Working examples of R in action
 1. Exploratory Data Analysis (EDA) [markdown][ew_plot]
 2. Modeling & Machine Learning [markdown][r_ml] (time permitting)
