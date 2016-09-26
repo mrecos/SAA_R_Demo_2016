@@ -42,10 +42,10 @@ Below are links to R Markdown documents that can be reviewed before or after the
 3. [Basics of creating and importing data][r_basic_data_import]
 
 ### Working examples of R in action
-e2. Exploratory Data Analysis (EDA) [markdown][ew_plot]
-3. Modeling & Machine Learning [markdown][r_ml]
-4. Data Visualization (forthcoming...)
-5. Reproducibility (forthcoming...)
+1. Exploratory Data Analysis (EDA) [markdown][ew_plot]
+2. Modeling & Machine Learning [markdown][r_ml]
+3. Data Visualization (forthcoming...)
+4. Reproducibility (forthcoming...)
 
 # Learning resources
 The internet is full of resources (videos, blogs, tutorials, books) for learning R.  Many of these resources are worthwhile, some are exceptional, and some are a waste of time.  Sorting through them is beyond the scope of this course, but a few links below will help zero in an some of the best generalized resources:
