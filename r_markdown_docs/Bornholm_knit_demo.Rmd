@@ -11,9 +11,9 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## Example of Analysis in Rmarkdown + knitr in RStudio
 
-Below is the workflow for an analysis on the Bornholm grave ornament data or `r data(bornholm)` in the `archdata` package.  The source info for this data is at the bottom of the page.  THe scope of the analysis is conducting a Correspondence Analysis on the count of different 39 different types of grave ornaments across 7 time periods from 77 female Iron Age graves in Bornholm, Denmark.  This analysis, while I believe valid, it just an example to show a reproducible research workflow.  The context for use of this example include a resaerch documenting thier own analysis, sharing analysis with a co-worker or advisor, preparing for publication, or just exploring some data that you find interesting. 
+Below is the workflow for an analysis on the Bornholm grave ornament data or `r data(bornholm)` in the `archdata` package.  The source info for this data is at the bottom of the page.  The scope of the analysis is conducting a Correspondence Analysis on the count of different 39 different types of grave ornaments across 7 time periods from 77 female Iron Age graves in Bornholm, Denmark.  This analysis, while I believe valid, it just an example to show a reproducible research workflow.  The context for use of this example include a research documenting their own analysis, sharing analysis with a co-worker or adviser, preparing for publication, or just exploring some data that you find interesting. 
 
-The end result is a HTML, PDF, and/or Word document that contains the entire throughput of your analysis, all the packages, anaytical steps, and results.  From this, anyone else can recreate your analysis for confirmation or extension.  Perhaps the best part is that the person repeating it is future you that recalls when you did that great CA analysis on the Bornholm data.  This process solves the problem of, "now where did I put those files...""
+The end result is a HTML, PDF, and/or Word document that contains the entire throughput of your analysis, all the packages, analytic steps, and results.  From this, anyone else can recreate your analysis for confirmation or extension.  Perhaps the best part is that the person repeating it is future you that recalls when you did that great CA analysis on the Bornholm data.  This process solves the problem of, "now where did I put those files...""
 
 ```{r Libraries, results = 'hide', message = FALSE}
 library("archdata")
@@ -22,6 +22,7 @@ library("MASS")
 library("factoextra")
 library("FactoMineR")
 library("gplots")
+library("ggmap")
 ```
 
 Load data from archdata package and look at structure
@@ -31,6 +32,16 @@ data(Bornholm)
 bh <- Bornholm
 str(bh)
 ```
+
+## Location Map
+```{r location_map, message=FALSE, warning=FALSE, comment=''}
+base_map <- get_map(location = "Bornholm", zoom = 10)
+ggmap(base_map, extent = "normal") +
+coord_cartesian(xlim = c(14.6, 15.22),
+                ylim = c(54.95, 55.33),
+                expand = FALSE)
+```
+
 
 ## Background of current research
 Look at Carlson version of Baxter(1994) Correspondence Analysis
@@ -46,9 +57,9 @@ boxplot(Bornholm.ca$rscore[, 1]~bh$Period, main="First CA Axis by Period")
 ```
 
 ## Current Analysis
-Instead of looking at each site, this analysis is more interested in change over time agraggated over sites.  This is an attempt to remove the variance between sites and look for a larger pattern from which Baxter's (1994) analysis is drawn.
+Instead of looking at each site, this analysis is more interested in change over time aggregated over sites.  This is an attempt to remove the variance between sites and look for a larger pattern from which Baxter's (1994) analysis is drawn.
 
-The approach here is to aggregate the counts of each ornamentation style per time period and then redo the Correspondence Analysis on these date.  If the CA results are verifiable via a Chi Square ($\chi^2$) test and row/column contributions, then we may be able to speak to the larger pattern of ornamentation thoughout these periods.
+The approach here is to aggregate the counts of each ornamentation style per time period and then redo the Correspondence Analysis on these date.  If the CA results are verifiable via a Chi Square ($\chi^2$) test and row/column contributions, then we may be able to speak to the larger pattern of ornamentation throughout these periods.
 
 The first step is to use `dplyr` and `tibble` packages to aggregate and prepare Bornholm data
 ```{r Data_munge}
@@ -66,7 +77,7 @@ print(bh2[,1:15]) # example of first 10 columns
 ```
 
 
-First take a look at the distribution of ornamentations over time. This realies on the `gplots` package `balloonplot()` function.
+First take a look at the distribution of ornamentation over time. This relies on the `gplots` package `balloonplot()` function.
 ```{r EDA_viz}
 # convert to matrix for balloonplot() function
 bh2_table <- as.table(as.matrix(bh2))
@@ -87,10 +98,10 @@ fviz_ca_biplot(ca3) + # the basic plot from the fviz_ca_biplot() function
 ```
 
 
-The results above show a pretty convincing pattern between the relationship of the time periods (blue) and Ornamentations (red).  Three relatively distinct clusters or ornamentations appear in each of the upper-left, upper-right quadrants, and lower half.  The central portions of these clusters coincide with the time periods of 1, 3, and 2 respectivley.  
+The results above show a pretty convincing pattern between the relationship of the time periods (blue) and Ornamentation (red).  Three relatively distinct clusters or ornamentation appear in each of the upper-left, upper-right quadrants, and lower half.  The central portions of these clusters coincide with the time periods of 1, 3, and 2 respectively.  
 
-Looking at the model a bit more indepth:
-Calculate the correaltion coefficient between the rows and columns
+Looking at the model a bit more in depth:
+Calculate the correlation coefficient between the rows and columns
 ```{r Eigen_cor}
 eig <- get_eigenvalue(ca3)
 trace <- sum(eig$eigenvalue) 
@@ -98,7 +109,7 @@ cor.coef <- sqrt(trace)
 cor.coef # > 0.2 = significant (general rule)
 ```
 
-The coefficient of `r cor.coef` is considered an important correlation result (Bendixen 1995, 576; Healey 2013, 289-290).  The summary results of the `ca3` object above give the $\chi^2$ results of the table values.  The same value is calcualted independently below.
+The coefficient of `r cor.coef` is considered an important correlation result (Bendixen 1995, 576; Healey 2013, 289-290).  The summary results of the `ca3` object above give the $\chi^2$ results of the table values.  The same value is calculated independently below.
 ```{r chi_sq}
 chi2 <- trace*sum(as.matrix(bh2))
 # Degree of freedom
@@ -122,9 +133,9 @@ fviz_screeplot(ca3) +
 # e.g. below max(row_random, col_random)
 ```
 
-The threshold (red dotted line) is drawn as the maximum value of the varaince explained by random for either rows or columns. In this case the row value is `r row_random`%, the column value is `r col_random`%, and there for the max is `r max(row_random, col_random)`%.  As depicted in the graphic, a choice of evaluating the first two dimensions is justifed under these assumptions.
+The threshold (red dotted line) is drawn as the maximum value of the variance explained by random for either rows or columns. In this case the row value is `r row_random`%, the column value is `r col_random`%, and there for the max is `r max(row_random, col_random)`%.  As depicted in the graphic, a choice of evaluating the first two dimensions is justified under these assumptions.
 
-To understand which of rows/columns and observations contribute to the overall significane of the results, the rows and columns coordinates are colored by thier contribution values
+To understand which of rows/columns and observations contribute to the overall significance of the results, the rows and columns coordinates are colored by their contribution values
 
 ```{r row_contrib}
 # contirbution of rows to global solution
@@ -143,7 +154,7 @@ fviz_ca_col(ca3, col.col="contrib")+
 
 It appears to be the observations at the negative poles of dimension 1 that are most contributing to the results; these include time periods 1 and 3.
 
-To compliment the symetic biplots above, an asymetric biplot is presented to understand the relationship if rows and columsn witin a common measurement space.  As such, the distance and location relative to the angle of the row coordinates (blue) can be intepreted directly as they are projected into the same measurment space.  
+To compliment the symmetric biplots above, an asymmetric biplot is presented to understand the relationship if rows and columns within a common measurement space.  As such, the distance and location relative to the angle of the row coordinates (blue) can be interpreted directly as they are projected into the same measurement space.  
 ```{r asymetirc_biplot}
 # asymetric biplot in the measuremnet space of rows
 fviz_ca_biplot(ca3, map ="rowprincipal", arrow = c(TRUE, FALSE)) +
@@ -151,9 +162,9 @@ fviz_ca_biplot(ca3, map ="rowprincipal", arrow = c(TRUE, FALSE)) +
 ```
 
 ### Concluding observations
-Generally, a series of styles are well clustered to time period 1a, with a related set at 1b.  The periods of 2a, 2b, and 2c are distance from both 1 and 3 and contain a continuum of styles.  There are a few overlapping styles (Q3d, R3b) between periods 2 and 3.  Finally, in the later time periods, 3a does not appear to have any stylistic cluster, but 3b contians the most distinct and distant cluster of any time period
+Generally, a series of styles are well clustered to time period 1a, with a related set at 1b.  The periods of 2a, 2b, and 2c are distance from both 1 and 3 and contain a continuum of styles.  There are a few overlapping styles (Q3d, R3b) between periods 2 and 3.  Finally, in the later time periods, 3a does not appear to have any stylistic cluster, but 3b contains the most distinct and distant cluster of any time period
 
-The images that show this best are the basic symetric plot and the asymetirc plot in row measurement space.  The code below will take the basic plots above and dress them up a bit with calls to `ggplot2`. These can be used in presentation or publication
+The images that show this best are the basic symmetric plot and the asymmetric plot in row measurement space.  The code below will take the basic plots above and dress them up a bit with calls to `ggplot2`. These can be used in presentation or publication
 
 ```{r final_plots}
 # dressed up symetric biplot
@@ -195,7 +206,7 @@ fviz_ca_biplot(ca3, map ="rowprincipal", arrow = c(TRUE, FALSE), repel = TRUE) +
 ```
 
 ## Data Source
-These data are from the `archdata` package in R and can be retrieved by typing `r data(bornholm)` once the package is installed and loaded.  The information below is form the pacakage documentation at: https://cran.r-project.org/web/packages/archdata/archdata.pdf
+These data are from the `archdata` package in R and can be retrieved by typing `r data(bornholm)` once the package is installed and loaded.  The information below is form the package documentation at: https://cran.r-project.org/web/packages/archdata/archdata.pdf
 
 #### Details
 Nielsen used data on 39 different types of ornaments from Ørsnes (1966) to seriate a series of 77 Germanic Iron Age graves from Bornholm, Denmark (1988, Table 4 and Figure 7). Baxter re-analyzed the data to illustrate correspondence analysis (1994: 104-107, Table A6). These data were taken from Nielsen’s Table 4 showing her seriation. Baxter’s version is scrambled in order to evaluate different seriation methods and does not include the ornament types (illustrated in Nielson’s Figure 7). The data include Ørsnes’s period designation (1966).
