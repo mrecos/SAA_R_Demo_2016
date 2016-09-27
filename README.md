@@ -67,6 +67,7 @@ The internet is full of resources (videos, blogs, tutorials, books) for learning
 - [ggplot2 Tutorial]
 - Tutorials on [spatial topics][neon] raster, vector, time series, etc...
 - [Making Maps with R][maps]
+- [R as GIS][RGIS] slides from Roger Bivand
 
 ### R Resources Specific to Archaeology
 Resources specific to R in archaeology are not numerous, but there are a growing number of really great resources:
@@ -192,6 +193,7 @@ Additional data will be in the form of CSV files and GIS shapefiles for examples
    [zubrown_visualization]:<http://rpubs.com/mharris/r_zubrow_visualization>
    [whygit]:<http://happygitwithr.com/big-picture.html>
    [CRAN-rr]:<https://cran.r-project.org/web/views/ReproducibleResearch.html>
+   [RGIS]:<http://geostat-course.org/system/files/geostat_talk16.pdf>
 
    
    
