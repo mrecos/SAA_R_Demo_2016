@@ -90,6 +90,7 @@ Resources for getting started learning and practicing Reproducible Research:
 - John Hopkins University Coursera course of [Reproducible Research][JHU_repro]
 - RStudio guide to [R Markdown]
 - [What is GitHub?][whygit]
+- [CRAN Task View on Reproducible Research][CRAN_rr]
 
 # Data for Seminar
 The vast majority of the data used in the examples of the seminar are drawn from the [Archdata] package for R.  This is a fantastic package pulled together by David L. Carlson (Texas A & M) and Georg Roth.  This package offers 24 different archaeological data sets along with metadata including description, source, and references.  The data sets in this package have been used in various archaeological studies and the package author often includes R examples of these analyses.  
@@ -190,6 +191,7 @@ Additional data will be in the form of CSV files and GIS shapefiles for examples
    [r_bornholm_rmarkdown]:<http://rpubs.com/mharris/Bornholm_rmarkdown_example>
    [zubrown_visualization]:<http://rpubs.com/mharris/r_zubrow_visualization>
    [whygit]:<http://happygitwithr.com/big-picture.html>
+   [CRAN-rr]:<https://cran.r-project.org/web/views/ReproducibleResearch.html>
 
    
    
